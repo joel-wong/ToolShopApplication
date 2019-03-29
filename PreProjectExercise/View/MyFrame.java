@@ -13,7 +13,7 @@ import Controller.Controller.*;
  * This class provides data fields and methods to create the GUI for an application
  * to maintain student records. 
  * 
- * @author Wendy
+ * @author Wenjia Yang and Joel Wong
  * @version 1.0
  * @since March 26, 2019
  *

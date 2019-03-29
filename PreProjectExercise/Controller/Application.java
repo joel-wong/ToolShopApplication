@@ -4,7 +4,7 @@ import View.MyFrame;
 
 /**
  * This class runs the application to maintain student records.
- * @author Wendy
+ * @author Wenjia Yang and Joel Wong
  * @version 1.0
  * @since March 26, 2019
  *
