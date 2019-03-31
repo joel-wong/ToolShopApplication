@@ -1,8 +1,8 @@
+package server.servermodel;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
-package server.servermodel;
 
 /**
  * Implements the front end of the Tool Shop application.

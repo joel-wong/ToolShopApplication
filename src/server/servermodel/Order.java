@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-
 package server.servermodel;
+
+import java.util.ArrayList;
 
 /**
  * Provides data fields and methods to create a Java data-type, representing an order

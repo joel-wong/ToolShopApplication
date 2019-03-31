@@ -1,3 +1,5 @@
+package server.servermodel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,8 +8,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
-
-package server.servermodel;
 
 /**
  * Provides data fields and methods to create a Tool Shop application with a console based menu.
