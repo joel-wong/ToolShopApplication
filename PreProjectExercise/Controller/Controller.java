@@ -24,7 +24,7 @@ import View.MyFrame;
  * This class provides data fields and methods to create the controller for an application
  * to maintain student records. 
  * 
- * @author Wendy
+ * @author Wenjia Yang and Joel Wong
  * @version 1.0
  * @since March 26, 2019
  *
@@ -138,6 +138,8 @@ public class Controller {
 						 tree.insert(id, faculty, major, year);
 					 }
 					 sc.close();
+					 
+					 JOptionPane.showMessageDialog(null, "New Tree Created. Click Browse to Refresh.", "", JOptionPane.PLAIN_MESSAGE);
 					 break;
 				 }
 				catch(FileNotFoundException fe) {
@@ -208,6 +210,8 @@ public class Controller {
 		    	}
 		    	else {
 		    		tree.insert(studentID, faculty, major, year); 
+					JOptionPane.showMessageDialog(null, "Record added to Existing Tree. Click Browse to Refresh.", "", JOptionPane.PLAIN_MESSAGE);
+
 		    	}
 		    }
 		}
