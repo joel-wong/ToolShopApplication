@@ -1,4 +1,4 @@
-package ClientView;
+package client.clientview;
 
 public class MyFrame {
 

@@ -1,4 +1,4 @@
-package ClientController;
+package client.clientcontroller;
 
 public class ListenerController {
 
