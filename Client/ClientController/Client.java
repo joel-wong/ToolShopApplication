@@ -1,4 +1,4 @@
-package Client_Controller;
+package ClientController;
 
 public class Client {
 
