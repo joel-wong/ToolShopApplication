@@ -11,7 +11,7 @@ public class ServerController implements Runnable {
     /**
      * Socket for the player to read and write to to communicate with the server
 	 */
-    private Socket aSocket;
+    private Socket clientSocket;
     /**
      * Stream for the player to write to the socket
      */
@@ -27,39 +27,69 @@ public class ServerController implements Runnable {
      * @param s is the socket
      * @param mark is the mark that the Player object will play with
      */
-    public ServerController(Socket s) {
-        this.aSocket = s;
+    public ServerController(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
 
+    /**
+     *
+     * @return true is the Thread has been able to connect to the client
+     */
+    public boolean connectToClient(){
         try {
-            in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-            out = new PrintWriter((aSocket.getOutputStream()), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter((clientSocket.getOutputStream()), true);
         }
         catch(IOException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public void run() {
-        System.out.println("Running");
+    public void serviceClient(){
         try {
             while (true) {
                 System.out.println(in.readLine());
+
+
+
+
+                // Placeholder - to be passed to shop application
                 out.println("Hello, World!\0");
+
+
+
             }
         }
         catch (IOException e) {
             System.out.println("Returned error: " + e.getMessage());
         }
-        finally {
-            try {
-                aSocket.close();
-                out.close();
-                in.close();
-                System.out.println("Successfully disconnected.");
-            }
-            catch(IOException e) {
-                System.out.println("Could not close input and output streams");
-            }
+    }
+
+    public void closeStreams(){
+        try {
+            clientSocket.close();
+            out.close();
+            in.close();
+            System.out.println("Successfully disconnected.");
+        }
+        catch(IOException e) {
+            System.out.println("Could not close input and output streams");
+        }
+    }
+
+    public void run() {
+        System.err.println("Connecting to a client...");
+        if(connectToClient()){
+            // if able to connect
+            System.err.println("Connected!");
+            serviceClient();
+            closeStreams();
+        }
+        else {
+            System.err.println("Could not connect to client.");
+            return;
         }
     }
 

@@ -32,14 +32,23 @@ public class Client {
      */
     private BufferedReader socketIn;
 
+    private String hostName;
+
+    private int portNumber;
+
     /**
      * Constructs a Client object with the specified host name and the port number.
-     * @param serverName is the name of the host
+     * @param hostName is the name of the host
      * @param portNumber is the port number
      */
-    public Client(String serverName, int portNumber) {
+    public Client(String hostName, int portNumber) {
+        this.hostName = hostName;
+        this.portNumber = portNumber;
+    }
+
+    public void connectToServer(){
         try {
-            aSocket = new Socket(serverName, portNumber);
+            aSocket = new Socket(hostName, portNumber);
             if(aSocket == null) {
                 System.out.println("Could not connect to server. Exiting...");;
                 System.exit(-1);
@@ -49,76 +58,105 @@ public class Client {
             socketOut = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
             System.err.println(e.getStackTrace());
+            System.exit(-1);
         }
     }
 
     /**
-     * Reads from the socket and prints what is read until user input is requested. Reads user input
-     * from standard input and writes it to the socket. Continually does this until the game is over.
+     * Receives input and writes to socket,
+     * then returns socket output.
      */
-    public void runToolShopApplication() {
+    public String request(String stringToSendToServer) {
 
-        String line = "";
+
+        // send input to server
+        socketOut.println(stringToSendToServer);
+        socketOut.flush();
+
+        // read server output
+
         String response = "";
-
         try {
-            outerloop:
-                while (true) {
-
-                    // check if closed here
-                    // if(something.closed()) {
-                    //   break;
-                    // }
-
-                    // read input
-                    System.out.println("Please input:");
-                    line = stdIn.readLine();
-                    socketOut.println(line);
-                    socketOut.flush();
-
-                    // get output from server
-                    while(true) {
-                        response = socketIn.readLine();
-                        if(response.contains("\0")) {
-                            response = response.replaceAll("\0", "");
-                            System.out.println(response);
-                            break;
-                        }
-                        System.out.println(response);
-                    }
-                    if(response.equals("QUIT")) {
-                        break;
-                    }
-                }
-
-            System.out.println("Program terminated...");
-
+            response = socketIn.readLine();
+            return response;
         }
         catch (IOException e) {
-            System.out.println("Sending error: " + e.getMessage());
+            System.err.println("Sending error: " + e.getMessage());
         }
-        catch (Exception e)
-        {
-            System.out.println("An error has occurred: " + e.getMessage());
+        catch (Exception e) {
+            System.err.println("An error has occurred: " + e.getMessage());
         }
-        finally {
-            try {
-                stdIn.close();
-                socketIn.close();
-                socketOut.close();
-            }
-            catch (IOException e) {
-                System.out.println("closing error: " + e.getMessage());
-            }
-        }
+        response = "Error communicating with server in Client.java";
+        return response;
     }
+
+    // Old code
+
+
+//    String response = "";
+//
+//        try {
+//        outerloop:
+//        while (true) {
+//
+//            // check if closed here
+//            // if(something.closed()) {
+//            //   break;
+//            // }
+//
+//            // read input
+//            System.out.println("Please input:");
+//            line = stdIn.readLine();
+//            socketOut.println(line);
+//            socketOut.flush();
+//
+//            // get output from server
+//            while(true) {
+//                response = socketIn.readLine();
+//                if(response.contains("\0")) {
+//                    response = response.replaceAll("\0", "");
+//                    System.out.println(response);
+//                    break;
+//                }
+//                System.out.println(response);
+//            }
+//            if(response.equals("QUIT")) {
+//                break;
+//            }
+//        }
+//
+//        System.out.println("Program terminated...");
+//
+//    }
+//        catch (IOException e) {
+//        System.out.println("Sending error: " + e.getMessage());
+//    }
+//        catch (Exception e)
+//    {
+//        System.out.println("An error has occurred: " + e.getMessage());
+//    }
+//
+//    public void closeConnections(){
+//        try {
+//            stdIn.close();
+//            socketOut.close();
+//        }
+//        catch (IOException e) {
+//            System.out.println("closing error: " + e.getMessage());
+//        }
+//    }
 
     /**
      * Main method that creates a Client and begins a game with the server.
      * @param args is unused
      */
     public static void main(String[] args) {
-        Client aClient = new Client("localhost", 8000);
-        aClient.runToolShopApplication();
+        Client clientInstance = new Client("localhost", 8000);
+        clientInstance.connectToServer();
+
+//        clientInstance.request("Test 1");
+//        clientInstance.request("Test 2");
+
+        // connections will be closed automatically
     }
 }
