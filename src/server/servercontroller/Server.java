@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import server.servermodel.*;
 
 public class Server {
 
@@ -16,7 +17,18 @@ public class Server {
      */
     private ExecutorService pool;
 
+    /**
+     * The instantiation of the shopApplication on the server. Loaded from the database on setup.
+     */
+    private ShopApplication shopApplicationInstance;
+
+    /**
+     * The instantiation of the shopInterface on the server, used to decode message and call the appropriate ShopApplication functions
+     */
+    private ShopInterface shopInterfaceInstance;
+
     public Server(){
+
     }
 
     /**
@@ -57,7 +69,7 @@ public class Server {
 
             while (true) {
                 // wait for someone to connect, make a new thread when they do.
-                ServerController newConnection = new ServerController(serverSocket.accept());
+                ServerController newConnection = new ServerController(serverSocket.accept(), shopInterfaceInstance);
                 System.out.println("Someone has connected.");
 
                 pool.execute(newConnection);
@@ -80,10 +92,25 @@ public class Server {
         }
     }
 
+    public void setupShop(){
+        shopApplicationInstance = new ShopApplication();
+    }
+
+    public void setupShopInterface(){
+        shopInterfaceInstance = new ShopInterface(shopApplicationInstance);
+    }
+
+    public void setupAndRun() {
+        // create server to connect to clients
+        setupShop();
+        setupShopInterface();
+        connectToClients();
+        runToolShopServer();
+        closeStreams();
+    }
+
     public static void main(String[] args) {
         Server serverInstance = new Server();
-        serverInstance.connectToClients();
-        serverInstance.runToolShopServer();
-        serverInstance.closeStreams();
+        serverInstance.setupAndRun();
     }
 }

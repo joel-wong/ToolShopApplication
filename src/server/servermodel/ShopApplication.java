@@ -8,6 +8,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Calendar;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 
 /**
  * Provides data fields and methods to create a Tool Shop application with a console based menu.
@@ -43,12 +46,36 @@ public class ShopApplication implements Constants {
      * @param order        is the ShopApplication's order
      * @param date         is the ShopApplication's date
      */
-    public ShopApplication(Inventory inventory, ArrayList<Supplier> supplierList, Order order, Date date) {
+    public ShopApplication() {
+        setupShop();
+    }
+
+    public void setupShop(){
+        ArrayList<Tool> toolList = new ArrayList<Tool>();
+        Inventory inventory = new Inventory(toolList);
+        ArrayList<Supplier> supplierList = new ArrayList<Supplier>();
+        Order order = new Order();
+        Calendar javaDate = Calendar.getInstance();
+        Format formatter = new SimpleDateFormat("MMMM");
+        String currentMonth = formatter.format(javaDate.getTime());
+        Date currentDate = new Date(currentMonth, javaDate.get(Calendar.DAY_OF_MONTH), javaDate.get(Calendar.YEAR));
+
         this.inventory = inventory;
         this.supplierList = supplierList;
         this.order = order;
-        this.date = date;
+        this.date = currentDate;
+
         generateNewOrder();
+
+        //loading in the supplier and item information from the text files into the Application
+        try {
+            loadSuppliers("suppliers.txt");
+            loadInventory("items.txt");
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("File not found:" + e.getMessage());
+            System.exit(-1);
+        }
     }
 
     /**

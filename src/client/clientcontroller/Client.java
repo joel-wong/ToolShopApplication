@@ -57,6 +57,7 @@ public class Client {
             socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
             socketOut = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
+            System.out.println("Could not connect to server. Exiting...");;
             System.err.println(e.getStackTrace());
             System.exit(-1);
         }
@@ -154,8 +155,10 @@ public class Client {
         Client clientInstance = new Client("localhost", 8000);
         clientInstance.connectToServer();
 
-//        clientInstance.request("Test 1");
-//        clientInstance.request("Test 2");
+        System.out.println(clientInstance.request("Test 1"));
+        System.out.println(clientInstance.request("Test 2"));
+
+
 
         // connections will be closed automatically
     }

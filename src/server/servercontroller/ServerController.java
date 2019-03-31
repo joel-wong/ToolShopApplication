@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import server.servermodel.ShopInterface;
 
 public class ServerController implements Runnable {
 
@@ -22,13 +23,19 @@ public class ServerController implements Runnable {
     private BufferedReader in;
 
     /**
+     * Used to retrieve data from the model
+     */
+    private ShopInterface shopInterfaceInstance;
+
+    /**
      * Constructs a Player object with the specified socket and mark. Creates the streams for
      * the Player to read and write from.
      * @param s is the socket
      * @param mark is the mark that the Player object will play with
      */
-    public ServerController(Socket clientSocket) {
+    public ServerController(Socket clientSocket, ShopInterface shopInterfaceInstance) {
         this.clientSocket = clientSocket;
+        this.shopInterfaceInstance = shopInterfaceInstance;
     }
 
     /**
@@ -48,18 +55,14 @@ public class ServerController implements Runnable {
     }
 
     public void serviceClient(){
+        String input = "";
+        String response = "";
+
         try {
             while (true) {
-                System.out.println(in.readLine());
-
-
-
-
-                // Placeholder - to be passed to shop application
-                out.println("Hello, World!\0");
-
-
-
+                input = in.readLine();
+                response = shopInterfaceInstance.serviceRequest(input);
+                out.println(response + "\0");
             }
         }
         catch (IOException e) {
