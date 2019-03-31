@@ -14,6 +14,5 @@ public class CheckQuantityListener extends ListenerController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
 	}
 }
