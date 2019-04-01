@@ -38,7 +38,7 @@ public class MyFrame extends JFrame{
 		setLayout(new BorderLayout());
 		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Main Window");
+		setTitle("Tool Shop Application");
 		createIcons();
 		addButtonPanel();
 		addTitlePanel();
@@ -130,7 +130,9 @@ public class MyFrame extends JFrame{
 	
 	public void addTitlePanel() {
 		JPanel titlePanel = new JPanel();
+		titlePanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		titlePanel.setLayout(new FlowLayout());
+		titlePanel.setBackground(new Color(169, 231, 252));
 		Font f = new Font("Arial",Font.BOLD,30);
 		JLabel title = new JLabel("MENU");
 		title.setFont(f);

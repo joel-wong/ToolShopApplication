@@ -69,9 +69,7 @@ public class ServerController implements Runnable {
                     }
                     input += currentLine + "\n";
                 }
-                System.out.println(input);
                 response = shopInterfaceInstance.serviceRequest(input);
-                System.out.println(response);
                 out.println(response + "\0");
             }
         }

@@ -74,7 +74,7 @@ public class Client {
 
 
         // send input to server
-        socketOut.println(stringToSendToServer);
+        socketOut.println(stringToSendToServer + "\0");
         socketOut.flush();
 
         // read server output
@@ -86,7 +86,6 @@ public class Client {
                 currentLine = socketIn.readLine();
                 if(currentLine.contains("\0")) {
                     response += currentLine.replaceAll("\0", "");
-                    System.out.println(response);
                     return response;
                 }
                 response += currentLine + "\n";

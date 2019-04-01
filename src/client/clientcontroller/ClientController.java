@@ -13,23 +13,23 @@ public class ClientController {
 	}
 	
 	public String removeTools(int toolID, int amountRemoved) {
-		String stringForRequest = "6\n" + toolID + "\n" + amountRemoved +"\0";
+		String stringForRequest = "6\n" + toolID + "\n" + amountRemoved;
 		return request(stringForRequest);
 		
 	}
 	
 	public String searchInventory(String toolName) {
-		String stringForRequest = "3\n" + toolName + "\0";
+		String stringForRequest = "3\n" + toolName;
 		return request(stringForRequest);
 	}
 	
 	public String searchInventory(int toolID) {
-		String stringForRequest = "4\n" + toolID + "\0";
+		String stringForRequest = "4\n" + toolID;
 		return request(stringForRequest);
 	}
 	
 	public String checkToolQuantity(int toolID) {
-		String stringForRequest = "5\n" + toolID + "\0";
+		String stringForRequest = "5\n" + toolID;
 		return request(stringForRequest);
 	}
 	
