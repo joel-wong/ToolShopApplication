@@ -38,7 +38,8 @@ public class Client {
 
     /**
      * Constructs a Client object with the specified host name and the port number.
-     * @param hostName is the name of the host
+     *
+     * @param hostName   is the name of the host
      * @param portNumber is the port number
      */
     public Client(String hostName, int portNumber) {
@@ -46,18 +47,20 @@ public class Client {
         this.portNumber = portNumber;
     }
 
-    public void connectToServer(){
+    public void connectToServer() {
         try {
             aSocket = new Socket(hostName, portNumber);
-            if(aSocket == null) {
-                System.out.println("Could not connect to server. Exiting...");;
+            if (aSocket == null) {
+                System.out.println("Could not connect to server. Exiting...");
+                ;
                 System.exit(-1);
             }
             stdIn = new BufferedReader(new InputStreamReader(System.in));
             socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
             socketOut = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
-            System.out.println("Could not connect to server. Exiting...");;
+            System.out.println("Could not connect to server. Exiting...");
+            ;
             System.err.println(e.getStackTrace());
             System.exit(-1);
         }
@@ -80,11 +83,9 @@ public class Client {
         try {
             response = socketIn.readLine();
             return response;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Sending error: " + e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("An error has occurred: " + e.getMessage());
         }
         response = "Error communicating with server in Client.java";
@@ -149,13 +150,12 @@ public class Client {
 
     /**
      * Main method that creates a Client and begins a game with the server.
+     *
      * @param args is unused
      */
     public static void main(String[] args) {
         Client clientInstance = new Client("localhost", 8000);
         clientInstance.connectToServer();
-
-
 
 
         // connections will be closed automatically
