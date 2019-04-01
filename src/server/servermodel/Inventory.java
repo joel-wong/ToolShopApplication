@@ -28,10 +28,12 @@ public class Inventory {
     /**
      * Prints out a list of the Tools in the inventory.
      */
-    public void listTools() {
+    public String listTools() {
+        String toolListString = "";
         for (Tool t : toolList) {
-            System.out.println(t);
+            toolListString += t + "\n";
         }
+        return toolListString;
     }
 
     /**
@@ -41,12 +43,11 @@ public class Inventory {
      * @param toolID      is the ID number of the Tool to have its quantity increased
      * @param amountAdded is the amount to increase the quantity by
      */
-    public void addTools(int toolID, int amountAdded) {
+    public String addTools(int toolID, int amountAdded) {
         //use Tool method: increaseQuantity
         Tool t = searchInventory(toolID);
         if (t == null) {
-            System.out.println("Invalid Tool ID");
-            return;
+            return "Invalid Tool ID";
         }
 
         int currentQuantity = checkToolQuantity(toolID);
@@ -54,8 +55,9 @@ public class Inventory {
 
         int quantityLeft = checkToolQuantity(toolID);
 
-        System.out.println("Successfully added " + amountAdded + " items with toolID " + toolID + ".");
-        System.out.println("New tool quantity: " + quantityLeft);
+        String response = "Successfully added " + amountAdded + " items with toolID " + toolID + ".\n";
+        response += "New tool quantity: " + quantityLeft +"\n";
+        return response;
 
 
     }
@@ -70,28 +72,28 @@ public class Inventory {
      * @param amountRemoved is the amount to decrease the quantity by
      * @return the remaining quantity of the tool
      */
-    public int removeTools(int toolID, int amountRemoved) {
+    public String removeTools(int toolID, int amountRemoved) {
         //use Tool method: decreaseQuantity
 
         int currentQuantity = checkToolQuantity(toolID);
 
         Tool t = searchInventory(toolID);
         if (t == null) {
-            System.out.println("Invalid Tool ID");
-            return -1;
+            return "Invalid Tool ID";
         }
         t.decreaseQuantity(amountRemoved);
 
         int quantityLeft = checkToolQuantity(toolID);
 
         //If no tools were removed. ie: not enough quantity to remove the desired amount
-        if (currentQuantity == quantityLeft)
-            System.out.println("Unsuccessful. Not enough quantity in stock to remove that amount.");
-        else {
-            System.out.println("Successfully removed " + amountRemoved + " items with toolID " + toolID + ".");
-            System.out.println("New tool quantity: " + quantityLeft);
+        if (currentQuantity == quantityLeft) {
+            return "Unsuccessful. Not enough quantity in stock to remove that amount.";
         }
-        return quantityLeft;
+        else {
+            String response = "Successfully removed " + amountRemoved + " items with toolID " + toolID + ".\n";
+            response += "New tool quantity: " + quantityLeft + "\n";
+            return response;
+        }
     }
 
     /**
@@ -117,15 +119,14 @@ public class Inventory {
      *
      * @param toolID is the ID number of the Tool to be deleted
      */
-    public void deleteTool(int toolID) {
+    public String deleteTool(int toolID) {
         Tool t = searchInventory(toolID);
 
         if (t == null) {
-            System.out.println("Invalid Tool ID.");
-            return;
+            return "Invalid Tool ID.\n";
         } else {
             toolList.remove(t);
-            System.out.println("Successfully deleted Tool " + toolID);
+            return "Successfully deleted Tool " + toolID + "\n";
         }
 
     }

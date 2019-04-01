@@ -155,8 +155,6 @@ public class Client {
         Client clientInstance = new Client("localhost", 8000);
         clientInstance.connectToServer();
 
-        System.out.println(clientInstance.request("Test 1"));
-        System.out.println(clientInstance.request("Test 2"));
 
 
 

@@ -192,104 +192,44 @@ public class ShopApplication implements Constants {
      * @param fileName is the name of the specified file
      * @throws IOException
      */
-    public void printOrderToFile(String fileName) throws IOException {
+    public void printOrderToFile(String fileName) {
         //call order toString method
-
-        FileWriter f = new FileWriter(fileName, true);
-        PrintWriter pr1 = new PrintWriter(f);
-        pr1.println(order);
-        pr1.close();
-    }
-
-    /**
-     * Implements the interactive console-based menu that keeps presenting the user with the menu for the
-     * shop application until the user quits.
-     * The user enters numbers corresponding to tasks for the application.
-     *
-     * @throws IOException
-     */
-    public void menu() throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int menuItem;
-        boolean quit = false;
-        while (quit == false) {
-            printMenu();
-            try {
-                menuItem = sc.nextInt();
-            } catch(InputMismatchException e) {
-                System.out.println("That is not a menu option.");
-                sc.next();
-                continue;
-            }
-            System.out.println(lineOfStars);
-            switch (menuItem) {
-                case 1:
-                    listTools();
-                    break;
-                case 2:
-                    listSuppliers();
-                    break;
-                case 3:
-                    searchInventoryByName();
-                    break;
-                case 4:
-                    searchInventoryByID();
-                    break;
-                case 5:
-                    checkToolQuantity();
-                    break;
-                case 6:
-                    removeTools();
-                    break;
-                case 7:
-                    addTools();
-                    break;
-                case 8:
-                    setNewDate();
-                    break;
-                case 9:
-                    deleteTool();
-                    break;
-                case 10:
-                    addNewToolToInventory();
-                    break;
-                case 11:
-                    addNewSupplier();
-                    break;
-                case 12:
-                    quit();
-                    quit = true;
-                    break;
-                default:
-                    System.out.println("Not a valid menu number. Please try again.");
-
-            }
-            System.out.println(lineOfStars);
+        try {
+            FileWriter f = new FileWriter(fileName, true);
+            PrintWriter pr1 = new PrintWriter(f);
+            pr1.println(order);
+            pr1.close();
+        }
+        catch (IOException e) {
+            System.err.println("Error, could not save orders to file");
+            System.err.println("Error message: " + e.getMessage());
         }
     }
 
     /**
      * Prints the menu choices for the Shop Application.
      */
-    public void printMenu() {
-        System.out.println(lineOfEquals);
-        System.out.println(lineOfEqualsWithMenuInCenter);
-        System.out.println(lineOfEquals);
-        System.out.println("Current Order date: " + date);
-        System.out.println("1.\tList all tools in inventory");
-        System.out.println("2.\tList suppliers");
-        System.out.println("3.\tSearch for tool by tool name");
-        System.out.println("4.\tSearch for tool by tool id");
-        System.out.println("5.\tCheck item quantity");
-        System.out.println("6.\tDecrease item quantity");
-        System.out.println("7.\tIncrease item quantity");
-        System.out.println("8.\tChange the date. Prints current order to file " + ordersFile + " and generates new order with new date.");
-        System.out.println("9.\tDelete tool from inventory");
-        System.out.println("10.\tAdd new tool to inventory");
-        System.out.println("11.\tAdd new supplier");
-        System.out.println("12.\tQuit. Prints current order to file " + ordersFile + ".");
-        System.out.println(lineOfEquals);
-        System.out.println("Please enter a menu number to perform the corresponding task:");
+    public String menu() {
+        String menu = "";
+        menu += lineOfEquals + "\n";
+        menu += lineOfEqualsWithMenuInCenter + "\n";
+        menu += lineOfEquals + "\n";
+        menu += "Current Order date: " + date + "\n";
+        menu += "1.\tList all tools in inventory" + "\n";
+        menu += "2.\tList suppliers" + "\n";
+        menu += "3.\tSearch for tool by tool name" + "\n";
+        menu += "4.\tSearch for tool by tool id" + "\n";
+        menu += "5.\tCheck item quantity" + "\n";
+        menu += "6.\tDecrease item quantity" + "\n";
+        menu += "7.\tIncrease item quantity" + "\n";
+        menu += "8.\tChange the date. Prints current order to file " + ordersFile + " and generates new order with new date." + "\n";
+        menu += "9.\tDelete tool from inventory" + "\n";
+        menu += "10.\tAdd new tool to inventory" + "\n";
+        menu += "11.\tAdd new supplier" + "\n";
+        menu += "12.\tQuit. Prints current order to file " + ordersFile + "." + "\n";
+        menu += lineOfEquals + "\n";
+        menu += "Please enter a menu number to perform the corresponding task:";
+        return menu;
     }
 
     //MENU TASKS
@@ -299,8 +239,8 @@ public class ShopApplication implements Constants {
     /**
      * Prints a lists of all the Tools in the inventory of the Shop Application.
      */
-    public void listTools() {
-        inventory.listTools();
+    public String listTools() {
+        return inventory.listTools();
     }
 
     //2.
@@ -308,10 +248,12 @@ public class ShopApplication implements Constants {
     /**
      * Prints a list of all the Suppliers in the Supplier list of the Shop Application.
      */
-    public void listSuppliers() {
+    public String listSuppliers() {
+        String supplierListString = "";
         for (Supplier s : supplierList) {
-            System.out.println(s);
+            supplierListString += s + "\n";
         }
+        return supplierListString;
     }
 
     //3.
@@ -320,19 +262,16 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool name and then searches the inventory using the Tool name.
      * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
      */
-    public void searchInventoryByName() {
+    public String searchInventoryByName(String toolName) {
         //use Inventory method searchInventory
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("[;|\n\r]+");
-        System.out.println("Please enter the tool name:");
-        String toolName = sc.next();
 
         Tool t = inventory.searchInventory(toolName);
         if (t == null)
-            System.out.println("\nSorry, Tool was not found.");
+            return "Sorry, Tool was not found.";
         else {
-            System.out.println("\nTool found: ");
-            System.out.println(t);
+            String response = "Tool found:\n\n";
+            response += t;
+            return response;
         }
 
     }
@@ -343,21 +282,15 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool ID and then searches the inventory using the Tool ID.
      * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
      */
-    public void searchInventoryByID() {
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
-        System.out.println("Please enter the Tool ID:");
+    public String searchInventoryByID(int toolID) {
         Tool t = null;
-        try {
-            int toolID = sc.nextInt();
-            t = inventory.searchInventory(toolID);
-            if (t == null)
-                System.out.println("\nSorry, Tool was not found.");
-            else {
-                System.out.println("\nTool found: ");
-                System.out.println(t);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("That is not an integer.");
+        t = inventory.searchInventory(toolID);
+        if (t == null)
+            return "Sorry, Tool was not found.\n";
+        else {
+            String response = "Tool found: \n";
+            response += t;
+            return response;
         }
     }
 
@@ -365,19 +298,16 @@ public class ShopApplication implements Constants {
 
     /**
      * Prompts the user to enter a Tool ID and then prints the quantity of the tool corresponding to the Tool ID.
-     * If the Tool ID does not corrospond to a Tool in the inventory the quantity printed will be 0.
+     * If the Tool ID does not corrospond to a Tool in the inventory the returned String indicates that.
      */
-    public void checkToolQuantity() {
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
-        System.out.println("Please enter the tool ID:");
-        try {
-            int toolID = sc.nextInt();
-            System.out.println("Quantity: " + inventory.checkToolQuantity(toolID));
+    public String checkToolQuantity(int toolID) {
+        Tool t = null;
+        t = inventory.searchInventory(toolID);
+        if (t == null)
+            return "Sorry, Tool was not found.\n";
+        else {
+            return "Quantity: " + inventory.checkToolQuantity(toolID);
         }
-        catch (InputMismatchException e){
-            System.out.println("That is not an integer.");
-        }
-
     }
 
     //6.
@@ -388,23 +318,22 @@ public class ShopApplication implements Constants {
      * If quantity of the tool is successfully decreased and the new quantity of the tool is below the threshold and
      * if there is no pending order, a default orderline for the tool is generated for the current Order of the shop application.
      */
-    public void removeTools() {
+    public String removeTools(int toolID, int amountRemoved) {
 
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
-        int toolID, amountRemoved;
-        System.out.println("Please enter the tool ID:");
-        toolID = sc.nextInt();
-        System.out.println("Please enter the amount of items to be removed :");
-        amountRemoved = sc.nextInt();
-
-        int quantityLeft = inventory.removeTools(toolID, amountRemoved);
         Tool t = inventory.searchInventory(toolID);
         //Checking if an orderline needs to be generated
-        if (t != null)
+        if (t != null){
+            String response = inventory.removeTools(toolID, amountRemoved);
+            int quantityLeft = inventory.checkToolQuantity(toolID);
             if (quantityLeft < itemQuantityMinimum && !t.checkAlreadyPendingOrder()) {
                 generateDefaultOrderline(t, quantityLeft);
-
+                response += "A new order has been created\n";
             }
+            return response;
+        }
+        else {
+            return "Sorry, that tool was not found\n";
+        }
     }
     //7.
 
@@ -412,15 +341,9 @@ public class ShopApplication implements Constants {
      * Prompts the uses to enter a Tool ID and the amount to increase the quantity of the Tool by
      * and then increases the quantity of the corresponding Tool in the inventory.
      */
-    public void addTools() {
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
-        System.out.println("Please enter the tool ID:");
-        int toolID = sc.nextInt();
-        System.out.println("Please enter the amount of items to be added :");
-        int amountAdded = sc.nextInt();
-
+    public String addTools(int toolID, int amountAdded) {
         //use Inventory method: addTools
-        inventory.addTools(toolID, amountAdded);
+        return inventory.addTools(toolID, amountAdded);
     }
 
     //8.
@@ -431,24 +354,19 @@ public class ShopApplication implements Constants {
      *
      * @throws IOException
      */
-    public void setNewDate() throws IOException {
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
+    public String setNewDate(String month, int day, int year) {
         printOrderToFile(ordersFile);
-        System.out.println("Please enter the name of the month:");
-        String month = sc.next();
-        System.out.println("Please enter the day:");
-        int day = sc.nextInt();
-        System.out.println("Please enter the year:");
-        int year = sc.nextInt();
 
         //changes the date
         date.setMonth(month);
         date.setDay(day);
         date.setYear(year);
+
         //calls generateNewOrder
         generateNewOrder();
-        System.out.println("Date changed to: " + date);
-        System.out.println("New Order has been generated and previous Order has been printed to file \"orders.txt\"");
+        String response = "Date changed to: " + date + "\n";
+        response += "New Order has been generated and previous Order has been printed to file \"" + ordersFile + "\"\n";
+        return response;
     }
 
     //9.
@@ -456,12 +374,8 @@ public class ShopApplication implements Constants {
     /**
      * Prompts the user to enter a Tool ID and then deletes the corresponding Tool from the Inventory.
      */
-    public void deleteTool() {
-        Scanner sc = new Scanner(System.in).useDelimiter("[;|\n\r]+");
-        System.out.println("Please enter the tool ID:");
-        int toolID = sc.nextInt();
-
-        inventory.deleteTool(toolID);
+    public String deleteTool(int toolID) {
+        return inventory.deleteTool(toolID);
     }
 
     //10.
@@ -472,38 +386,21 @@ public class ShopApplication implements Constants {
      * list of Suppliers. If the quantity of the tool is below the threshold,
      * a default orderline for the tool is generated for the current Order of the shop application.
      */
-    public void addNewToolToInventory() {
+    public String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
         //use supplierID to go through supplierList and find the Supplier object
         //call the Inventory method addNewTool
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("[;|\n\r]+");
-        int toolID;
-        String toolName;
-        int quantity;
-        double price;
-        int supplierID;
-        System.out.println("Set Tool ID:");
-        toolID = sc.nextInt();
-        System.out.println("Set Tool Name:");
-        toolName = sc.next();
-        System.out.println("Set Tool Quantity:");
-        quantity = sc.nextInt();
-        System.out.println("Set Tool Price:");
-        price = sc.nextDouble();
-        System.out.println("Set Supplier ID:");
-        supplierID = sc.nextInt();
         Supplier s = searchSupplier(supplierID);
         if (s == null) {
-            System.out.println("Supplier ID not recognized.");
-            return;
+            return "Supplier ID not recognized.\n";
         }
         inventory.addNewTool(toolID, toolName, quantity, price, s);
-        System.out.println("Successfully added new tool to inventory:");
+        String response = "Successfully added new tool to inventory:\n";
         Tool t = inventory.searchInventory(toolID);
-        System.out.println(t);
+        response += t;
         if (quantity < itemQuantityMinimum) {
             generateDefaultOrderline(t, quantity);
         }
+        return response;
     }
 
 
@@ -513,26 +410,13 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter all the necessary information to add a new Supplier to the list
      * of Suppliers in the Application and then adds the new Supplier to the list.
      */
-    public void addNewSupplier() {
+    public String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
         //use Supplier constructor
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("[;|\n\r]+");
-        int supplierID;
-        String companyName;
-        String address;
-        String salesContact;
-        System.out.println("Set Supplier ID:");
-        supplierID = sc.nextInt();
-        System.out.println("Set Company Name:");
-        companyName = sc.next();
-        System.out.println("Set Address:");
-        address = sc.next();
-        System.out.println("Set Sales Contact:");
-        salesContact = sc.next();
 
         supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
-        System.out.println("Successfully added new supplier to List of Suppliers:");
-        System.out.println(supplierList.get(supplierList.size() - 1));
+        String response = "Successfully added new supplier to List of Suppliers:\n";
+        response += supplierList.get(supplierList.size() - 1);
+        return response;
 
     }
     //12.
@@ -543,9 +427,9 @@ public class ShopApplication implements Constants {
      *
      * @throws IOException
      */
-    public void quit() throws IOException {
+    public String quit() {
         printOrderToFile(ordersFile);
-        System.out.println("Exiting application...");
+        return "Exiting application...";
     }
 
 
