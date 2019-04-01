@@ -32,7 +32,46 @@ public class ClientController {
 		String stringForRequest = "5\n" + toolID;
 		return request(stringForRequest);
 	}
-	
+
+	/* FUNCTIONS THAT WENDY NEEDS TO ADD TO GUI -------------------------------------------------------------------------------*/
+
+	public String listSuppliers() {
+		String stringForRequest = "2";
+		return request(stringForRequest);
+	}
+
+	public String addTools(int toolID, int amountAdded) {
+		String stringForRequest = "7\n" + toolID + "\n" + amountAdded;
+		return request(stringForRequest);
+	}
+
+	public String setNewDate(String month, int day, int year) {
+		String stringForRequest = "8\n" + month + "\n" + day + "\n" + year;
+		return request(stringForRequest);
+	}
+
+	public String deleteTool(int toolID) {
+		String stringForRequest = "9\n" + toolID;
+		return request(stringForRequest);
+	}
+
+	public String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
+		String stringForRequest = "10\n" + toolID + "\n" + toolName + "\n" + quantity + "\n" + price + "\n" + supplierID;
+		return request(stringForRequest);
+	}
+
+	public String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
+		String stringForRequest = "11\n" + supplierID + "\n" + companyName + "\n" + address + "\n" + salesContact;
+		return request(stringForRequest);
+	}
+
+	/* END FO FUNCTIONS THAT WENDY NEEDS TO ADD TO GUI ----------------------------------------------------------------------- */
+
+
+
+
+
+
 	
 	public String request(String s) {
 		return client.request(s);
