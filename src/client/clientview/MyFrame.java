@@ -36,7 +36,7 @@ public class MyFrame extends JFrame{
 	public MyFrame(String s) {
 		super(s);
 		setLayout(new BorderLayout());
-		setSize(500,600);
+		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Main Window");
 		createIcons();
@@ -68,6 +68,16 @@ public class MyFrame extends JFrame{
 	
 	public ImageIcon getListIcon() {
 		return listIcon;
+	}
+	
+	public ImageIcon getSearchIcon() {
+		return searchIcon;
+	}
+	public ImageIcon getCheckIcon() {
+		return checkIcon;
+	}
+	public ImageIcon getDecreaseIcon() {
+		return decreaseIcon;
 	}
 	
 	public void createIcons() {
