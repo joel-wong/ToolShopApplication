@@ -57,11 +57,21 @@ public class ServerController implements Runnable {
     public void serviceClient(){
         String input = "";
         String response = "";
-
+        String currentLine = "";
         try {
             while (true) {
-                input = in.readLine();
+                input = "";
+                while(true) {
+                    currentLine = in.readLine();
+                    if(currentLine.contains("\0")) {
+                        input += currentLine.replaceAll("\0", "") + "\n";
+                        break;
+                    }
+                    input += currentLine + "\n";
+                }
+                System.out.println(input);
                 response = shopInterfaceInstance.serviceRequest(input);
+                System.out.println(response);
                 out.println(response + "\0");
             }
         }

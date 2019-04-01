@@ -30,6 +30,7 @@ public class ShopInterface {
 
     public synchronized String serviceRequest(String input) {
         Scanner sc = new Scanner(input);
+        sc.useDelimiter("[;|\n\r]+");
         int menuItem;
         try {
             try {
@@ -176,6 +177,9 @@ public class ShopInterface {
         }
         catch (Exception e) {
             return e.getMessage();
+        }
+        finally {
+            sc.close();
         }
     }
 

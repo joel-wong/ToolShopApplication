@@ -8,25 +8,29 @@ public class ClientController {
 	}
 	
 	public String listTools() {
-		return "Listing Tools...";
-		
+		String stringForRequest = "1";
+		return request(stringForRequest);
 	}
 	
 	public String removeTools(int toolID, int amountRemoved) {
-		return "Removing Tools...";
+		String stringForRequest = "6\n" + toolID + "\n" + amountRemoved +"\0";
+		return request(stringForRequest);
 		
 	}
 	
 	public String searchInventory(String toolName) {
-		return "Searching Inventory...";
+		String stringForRequest = "3\n" + toolName + "\0";
+		return request(stringForRequest);
 	}
 	
 	public String searchInventory(int toolID) {
-		return "Searching Inventory...";
+		String stringForRequest = "4\n" + toolID + "\0";
+		return request(stringForRequest);
 	}
 	
 	public String checkToolQuantity(int toolID) {
-		return "Checking Quantity...";
+		String stringForRequest = "5\n" + toolID + "\0";
+		return request(stringForRequest);
 	}
 	
 	

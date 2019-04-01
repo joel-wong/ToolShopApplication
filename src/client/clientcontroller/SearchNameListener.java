@@ -3,8 +3,6 @@ package client.clientcontroller;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
-
-import Model.Node;
 import client.clientview.MyFrame;
 
 public class SearchNameListener extends ListenerController {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import client.clientview.MyFrame;
 
 /**
  * Provides data fields and methods a create a client in a client-server
@@ -52,7 +53,6 @@ public class Client {
             aSocket = new Socket(hostName, portNumber);
             if (aSocket == null) {
                 System.out.println("Could not connect to server. Exiting...");
-                ;
                 System.exit(-1);
             }
             stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -80,9 +80,18 @@ public class Client {
         // read server output
 
         String response = "";
+        String currentLine = "";
         try {
-            response = socketIn.readLine();
-            return response;
+            while(true) {
+                currentLine = socketIn.readLine();
+                if(currentLine.contains("\0")) {
+                    response += currentLine.replaceAll("\0", "");
+                    System.out.println(response);
+                    return response;
+                }
+                response += currentLine + "\n";
+
+            }
         } catch (IOException e) {
             System.err.println("Sending error: " + e.getMessage());
         } catch (Exception e) {
@@ -92,62 +101,6 @@ public class Client {
         return response;
     }
 
-    // Old code
-
-
-//    String response = "";
-//
-//        try {
-//        outerloop:
-//        while (true) {
-//
-//            // check if closed here
-//            // if(something.closed()) {
-//            //   break;
-//            // }
-//
-//            // read input
-//            System.out.println("Please input:");
-//            line = stdIn.readLine();
-//            socketOut.println(line);
-//            socketOut.flush();
-//
-//            // get output from server
-//            while(true) {
-//                response = socketIn.readLine();
-//                if(response.contains("\0")) {
-//                    response = response.replaceAll("\0", "");
-//                    System.out.println(response);
-//                    break;
-//                }
-//                System.out.println(response);
-//            }
-//            if(response.equals("QUIT")) {
-//                break;
-//            }
-//        }
-//
-//        System.out.println("Program terminated...");
-//
-//    }
-//        catch (IOException e) {
-//        System.out.println("Sending error: " + e.getMessage());
-//    }
-//        catch (Exception e)
-//    {
-//        System.out.println("An error has occurred: " + e.getMessage());
-//    }
-//
-//    public void closeConnections(){
-//        try {
-//            stdIn.close();
-//            socketOut.close();
-//        }
-//        catch (IOException e) {
-//            System.out.println("closing error: " + e.getMessage());
-//        }
-//    }
-
     /**
      * Main method that creates a Client and begins a game with the server.
      *
@@ -155,8 +108,18 @@ public class Client {
      */
     public static void main(String[] args) {
         Client clientInstance = new Client("localhost", 8000);
-        clientInstance.connectToServer();
+        ClientController clientController = new ClientController(clientInstance);
+        MyFrame view = new MyFrame("Frame 1");
 
+        ListToolsListener listToolsListener = new ListToolsListener(view, clientController);
+        SearchNameListener searchNameListener = new SearchNameListener(view, clientController);
+        SearchIDListener searchIDListener = new SearchIDListener(view, clientController);
+        CheckQuantityListener checkQuantityListener = new CheckQuantityListener(view, clientController);
+        DecreaseQuantityListener decreaseQuantityListener = new DecreaseQuantityListener(view, clientController);
+
+        view.setVisible(true);
+
+        clientInstance.connectToServer();
 
         // connections will be closed automatically
     }
