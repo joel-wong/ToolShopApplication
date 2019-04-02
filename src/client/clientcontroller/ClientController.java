@@ -65,6 +65,15 @@ public class ClientController {
 		return request(stringForRequest);
 	}
 
+	public boolean login(String username, String password) {
+		String hashedPassword = PasswordHashHelper.hashPassword(password);
+		String stringForRequest = "12\n" + username + "\n" + hashedPassword;
+		if(request(stringForRequest).equals("true")) {
+			return true;
+		}
+		return false;
+	}
+
 	/* END FO FUNCTIONS THAT WENDY NEEDS TO ADD TO GUI ----------------------------------------------------------------------- */
 
 

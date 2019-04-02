@@ -51,12 +51,7 @@ public class ShopInterface {
 
                 case 3:
                     String toolNameCase3;
-                    try {
-                        toolNameCase3 = sc.next();
-                    }
-                    catch(NoSuchElementException e) {
-                        return "Could not parse input from server";
-                    }
+                    toolNameCase3 = sc.next();
                     return shopApplicationInstance.searchInventoryByName(toolNameCase3);
 
                 case 4:
@@ -113,9 +108,6 @@ public class ShopInterface {
                     catch (InputMismatchException e) {
                         return "Received an unexpected input when attempting to set a new date";
                     }
-                    catch (NoSuchElementException e) {
-                        return "Could not parse input when attempting to set a new date";
-                    }
                     return shopApplicationInstance.setNewDate(month, day, year);
 
                 case 9:
@@ -144,9 +136,6 @@ public class ShopInterface {
                     catch (InputMismatchException e) {
                         return "Numbers passed to add new tool was invalid.";
                     }
-                    catch (NoSuchElementException e) {
-                        return "String passed to add new tool was invalid.";
-                    }
                     return shopApplicationInstance.addNewToolToInventory(toolIDCase10, toolNameCase10, quantity, price, supplierIDCase10);
 
                 case 11:
@@ -166,8 +155,11 @@ public class ShopInterface {
                     return shopApplicationInstance.addNewSupplier(supplierIDCase11, companyName, address, salesContact);
 
                 case 12:
-                    return shopApplicationInstance.quit();
-
+                    String username;
+                    String hashedPassword;
+                    username = sc.next();
+                    hashedPassword = sc.next();
+                    return shopApplicationInstance.checkLogin(username, hashedPassword);
                 default:
                     return "Invalid menu number passed by the client to the server. Please try again.";
             }

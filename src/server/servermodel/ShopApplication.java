@@ -138,10 +138,10 @@ public class ShopApplication implements Constants {
                 sc.nextLine();
             }
 
-            System.out.println(supplierID);
-            System.out.println(companyName);
-            System.out.println(address);
-            System.out.println(salesContact);
+//            System.out.println(supplierID);
+//            System.out.println(companyName);
+//            System.out.println(address);
+//            System.out.println(salesContact);
 
             supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
         }
@@ -181,7 +181,7 @@ public class ShopApplication implements Constants {
      */
     public void generateDefaultOrderline(Tool tool, int currentQuantity) {
         order.addOrderLine(tool, itemQuantityMaximum - currentQuantity);
-        System.out.println("Generated an orderline for item " + tool.getToolID());
+//        System.out.println("Generated an orderline for item " + tool.getToolID());
         //The tool now has a pending order
         tool.setPendingOrder(true);
     }
@@ -419,18 +419,10 @@ public class ShopApplication implements Constants {
         return response;
 
     }
-    //12.
 
-    /**
-     * Prints the current Order to the default file and then prints that it is
-     * exiting the application.
-     *
-     * @throws IOException
-     */
-    public String quit() {
-        printOrderToFile(ordersFile);
-        return "Exiting application...";
+    // 12.
+    // Checks if a given username/password (hased with SHA512) is valid
+    public String checkLogin(String username, String hashedPassword) {
+        return Authenticator.authenticate(username, hashedPassword);
     }
-
-
 }
