@@ -25,10 +25,6 @@ public class Client {
      */
     private Socket aSocket;
     /**
-     * Stream to read standard input from the user
-     */
-    private BufferedReader stdIn;
-    /**
      * Stream to read from the socket
      */
     private BufferedReader socketIn;
@@ -55,7 +51,6 @@ public class Client {
                 System.out.println("Could not connect to server. Exiting...");
                 System.exit(-1);
             }
-            stdIn = new BufferedReader(new InputStreamReader(System.in));
             socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
             socketOut = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
@@ -111,10 +106,17 @@ public class Client {
         MyFrame view = new MyFrame("Frame 1");
 
         ListToolsListener listToolsListener = new ListToolsListener(view, clientController);
+        ListSuppliersListener listSuppliersListener = new ListSuppliersListener(view, clientController);
         SearchNameListener searchNameListener = new SearchNameListener(view, clientController);
         SearchIDListener searchIDListener = new SearchIDListener(view, clientController);
         CheckQuantityListener checkQuantityListener = new CheckQuantityListener(view, clientController);
         DecreaseQuantityListener decreaseQuantityListener = new DecreaseQuantityListener(view, clientController);
+        IncreaseQuantityListener increaseQuantityListener = new IncreaseQuantityListener(view, clientController);
+        AddToolListener addToolListener = new AddToolListener(view, clientController);
+        DeleteToolListener deleteToolListener = new DeleteToolListener(view, clientController);
+        AddSupplierListener addSupplierListener = new AddSupplierListener(view, clientController);
+        SetDateListener setDateListener = new SetDateListener(view, clientController);
+
 
         view.setVisible(true);
 

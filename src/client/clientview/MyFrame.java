@@ -8,35 +8,53 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import client.clientcontroller.AddSupplierListener;
+import client.clientcontroller.AddToolListener;
 import client.clientcontroller.CheckQuantityListener;
 import client.clientcontroller.DecreaseQuantityListener;
+import client.clientcontroller.DeleteToolListener;
+import client.clientcontroller.IncreaseQuantityListener;
+import client.clientcontroller.ListSuppliersListener;
 import client.clientcontroller.ListToolsListener;
 import client.clientcontroller.SearchIDListener;
 import client.clientcontroller.SearchNameListener;
+import client.clientcontroller.SetDateListener;
 
 public class MyFrame extends JFrame{
 	private JButton listTools;
+	private JButton listSuppliers;
 	private JButton searchName;
 	private JButton searchID;
 	private JButton checkQuantity;
 	private JButton decreaseQuantity;
+	private JButton increaseQuantity;
+	private JButton deleteTool;
+	private JButton addNewTool;
+	private JButton addNewSupplier;
+	private JButton setNewDate;
+	
 	
 	private ImageIcon listIcon;
 	private ImageIcon searchIcon;
 	private ImageIcon checkIcon;
 	private ImageIcon decreaseIcon;
+	private ImageIcon increaseIcon;
+	private ImageIcon deleteIcon;
+	private ImageIcon addToolIcon;
+	private ImageIcon addSupplierIcon;
+	private ImageIcon setDateIcon;
 	
 	
 	public MyFrame(String s) {
 		super(s);
 		setLayout(new BorderLayout());
-		setSize(500,500);
+		setSize(500,700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Tool Shop Application");
 		createIcons();
@@ -48,6 +66,10 @@ public class MyFrame extends JFrame{
 	
 	public void addListener(ListToolsListener l) {
 		listTools.addActionListener(l);		
+	}
+	
+	public void addListener(ListSuppliersListener l) {
+		listSuppliers.addActionListener(l);		
 	}
 	
 	public void addListener(SearchNameListener l) {
@@ -66,6 +88,22 @@ public class MyFrame extends JFrame{
 		decreaseQuantity.addActionListener(l);
 	}
 	
+	public void addListener(IncreaseQuantityListener l) {
+		increaseQuantity.addActionListener(l);
+	}
+	public void addListener(AddToolListener l) {
+		addNewTool.addActionListener(l);
+	}
+	public void addListener(DeleteToolListener l) {
+		deleteTool.addActionListener(l);
+	}
+	public void addListener(AddSupplierListener l) {
+		addNewSupplier.addActionListener(l);
+	}
+	public void addListener(SetDateListener l) {
+		setNewDate.addActionListener(l);
+	}
+	
 	public ImageIcon getListIcon() {
 		return listIcon;
 	}
@@ -79,12 +117,32 @@ public class MyFrame extends JFrame{
 	public ImageIcon getDecreaseIcon() {
 		return decreaseIcon;
 	}
+	public ImageIcon getIncreaseIcon() {
+		return increaseIcon;
+	}
+	public ImageIcon getDeleteIcon() {
+		return deleteIcon;
+	}
+	public ImageIcon getAddToolIcon() {
+		return addToolIcon;
+	}
+	public ImageIcon getAddSupplierIcon() {
+		return addSupplierIcon;
+	}
+	public ImageIcon getSetDateIcon() {
+		return setDateIcon;
+	}
 	
 	public void createIcons() {
 		listIcon = new ImageIcon("listIcon.png");
 		searchIcon = new ImageIcon("searchIcon.png");
 		checkIcon = new ImageIcon("checkIcon.png");
 		decreaseIcon = new ImageIcon("decreaseIcon.png");
+		increaseIcon = new ImageIcon("increaseIcon.png");
+		deleteIcon = new ImageIcon("deleteIcon.png");
+		addToolIcon = new ImageIcon("addToolIcon.png");
+		addSupplierIcon = new ImageIcon("addSupplierIcon.png");
+		setDateIcon = new ImageIcon("setDateIcon.png");
 	}
 	
 	
@@ -99,6 +157,9 @@ public class MyFrame extends JFrame{
 		listTools = new JButton("List all Tools", listIcon);
 		listTools.setAlignmentX(CENTER_ALIGNMENT);
 		listTools.setFont(f);
+		listSuppliers = new JButton("List all Suppliers", listIcon);
+		listSuppliers.setAlignmentX(CENTER_ALIGNMENT);
+		listSuppliers.setFont(f);
 		searchName = new JButton("Search for Tool by Name",searchIcon);
 		searchName.setAlignmentX(CENTER_ALIGNMENT);
 		searchName.setFont(f);
@@ -111,9 +172,26 @@ public class MyFrame extends JFrame{
 		decreaseQuantity = new JButton("Decrease Tool Quantity", decreaseIcon);
 		decreaseQuantity.setAlignmentX(CENTER_ALIGNMENT);
 		decreaseQuantity.setFont(f);
+		increaseQuantity = new JButton("Increase Tool Quantity", increaseIcon);
+		increaseQuantity.setAlignmentX(CENTER_ALIGNMENT);
+		increaseQuantity.setFont(f);
+		addNewTool = new JButton("Add New Tool", addToolIcon);
+		addNewTool.setAlignmentX(CENTER_ALIGNMENT);
+		addNewTool.setFont(f);
+		deleteTool = new JButton("Delete Tool", deleteIcon);
+		deleteTool.setAlignmentX(CENTER_ALIGNMENT);
+		deleteTool.setFont(f);
+		addNewSupplier = new JButton("Add New Supplier", addSupplierIcon);
+		addNewSupplier.setAlignmentX(CENTER_ALIGNMENT);
+		addNewSupplier.setFont(f);
+		setNewDate = new JButton("Set New Date", setDateIcon);
+		setNewDate.setAlignmentX(CENTER_ALIGNMENT);
+		setNewDate.setFont(f);
 		
 		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(listTools);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(listSuppliers);
 		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(searchName);
 		buttonPanel.add(Box.createVerticalGlue());
@@ -122,6 +200,16 @@ public class MyFrame extends JFrame{
 		buttonPanel.add(checkQuantity);
 		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(decreaseQuantity);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(increaseQuantity);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(addNewTool);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(deleteTool);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(addNewSupplier);
+		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(setNewDate);
 		buttonPanel.add(Box.createVerticalGlue());
 		
 		getContentPane().add("Center", buttonPanel);
