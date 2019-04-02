@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -22,6 +23,7 @@ import client.clientcontroller.DeleteToolListener;
 import client.clientcontroller.IncreaseQuantityListener;
 import client.clientcontroller.ListSuppliersListener;
 import client.clientcontroller.ListToolsListener;
+import client.clientcontroller.LoginListener;
 import client.clientcontroller.SearchIDListener;
 import client.clientcontroller.SearchNameListener;
 import client.clientcontroller.SetDateListener;
@@ -39,6 +41,7 @@ public class MyFrame extends JFrame{
 	private JButton addNewSupplier;
 	private JButton setNewDate;
 	
+	private JButton login;
 	
 	private ImageIcon listIcon;
 	private ImageIcon searchIcon;
@@ -49,19 +52,18 @@ public class MyFrame extends JFrame{
 	private ImageIcon addToolIcon;
 	private ImageIcon addSupplierIcon;
 	private ImageIcon setDateIcon;
+	private ImageIcon loginIcon;
 	
 	
 	public MyFrame(String s) {
 		super(s);
 		setLayout(new BorderLayout());
-		setSize(500,700);
+		setSize(300,300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Tool Shop Application");
 		createIcons();
-		addButtonPanel();
-		addTitlePanel();
 		
-	    
+		    
 	}
 	
 	public void addListener(ListToolsListener l) {
@@ -103,6 +105,9 @@ public class MyFrame extends JFrame{
 	public void addListener(SetDateListener l) {
 		setNewDate.addActionListener(l);
 	}
+	public void addListener(LoginListener l) {
+		login.addActionListener(l);
+	}
 	
 	public ImageIcon getListIcon() {
 		return listIcon;
@@ -132,6 +137,9 @@ public class MyFrame extends JFrame{
 	public ImageIcon getSetDateIcon() {
 		return setDateIcon;
 	}
+	public ImageIcon getLoginIcon() {
+		return loginIcon;
+	}
 	
 	public void createIcons() {
 		listIcon = new ImageIcon("listIcon.png");
@@ -143,6 +151,7 @@ public class MyFrame extends JFrame{
 		addToolIcon = new ImageIcon("addToolIcon.png");
 		addSupplierIcon = new ImageIcon("addSupplierIcon.png");
 		setDateIcon = new ImageIcon("setDateIcon.png");
+		loginIcon = new ImageIcon("loginIcon.png");
 	}
 	
 	
@@ -150,67 +159,46 @@ public class MyFrame extends JFrame{
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		buttonPanel.setBackground(Color.WHITE);
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+		buttonPanel.setLayout(new GridLayout(0,2));
 		
 		Font f = new Font("Arial",Font.PLAIN,20);
 		
 		listTools = new JButton("List all Tools", listIcon);
-		listTools.setAlignmentX(CENTER_ALIGNMENT);
 		listTools.setFont(f);
 		listSuppliers = new JButton("List all Suppliers", listIcon);
-		listSuppliers.setAlignmentX(CENTER_ALIGNMENT);
 		listSuppliers.setFont(f);
 		searchName = new JButton("Search for Tool by Name",searchIcon);
-		searchName.setAlignmentX(CENTER_ALIGNMENT);
 		searchName.setFont(f);
 		searchID = new JButton("Search for Tool by ID",searchIcon);
-		searchID.setAlignmentX(CENTER_ALIGNMENT);
 		searchID.setFont(f);
 		checkQuantity = new JButton("Check Tool Quantity",checkIcon);
-		checkQuantity.setAlignmentX(CENTER_ALIGNMENT);
 		checkQuantity.setFont(f);
 		decreaseQuantity = new JButton("Decrease Tool Quantity", decreaseIcon);
-		decreaseQuantity.setAlignmentX(CENTER_ALIGNMENT);
 		decreaseQuantity.setFont(f);
 		increaseQuantity = new JButton("Increase Tool Quantity", increaseIcon);
-		increaseQuantity.setAlignmentX(CENTER_ALIGNMENT);
 		increaseQuantity.setFont(f);
 		addNewTool = new JButton("Add New Tool", addToolIcon);
-		addNewTool.setAlignmentX(CENTER_ALIGNMENT);
 		addNewTool.setFont(f);
 		deleteTool = new JButton("Delete Tool", deleteIcon);
-		deleteTool.setAlignmentX(CENTER_ALIGNMENT);
 		deleteTool.setFont(f);
 		addNewSupplier = new JButton("Add New Supplier", addSupplierIcon);
-		addNewSupplier.setAlignmentX(CENTER_ALIGNMENT);
 		addNewSupplier.setFont(f);
 		setNewDate = new JButton("Set New Date", setDateIcon);
-		setNewDate.setAlignmentX(CENTER_ALIGNMENT);
 		setNewDate.setFont(f);
 		
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(listTools);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(listSuppliers);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(searchName);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(searchID);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(checkQuantity);
 		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(decreaseQuantity);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(increaseQuantity);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(addNewTool);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(deleteTool);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(addNewSupplier);
-		buttonPanel.add(Box.createVerticalGlue());
 		buttonPanel.add(setNewDate);
-		buttonPanel.add(Box.createVerticalGlue());
+		
 		
 		getContentPane().add("Center", buttonPanel);
 	}
@@ -227,6 +215,22 @@ public class MyFrame extends JFrame{
 		titlePanel.add(title);
 		getContentPane().add("North", titlePanel);
 	}
+	
+	public void addLoginPanel() {
+		JPanel loginPanel = new JPanel();
+		loginPanel.setBackground(new Color(169, 231, 252));
+		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+		login = new JButton("Login", loginIcon);
+		
+		login.setAlignmentX(CENTER_ALIGNMENT);
+		
+		loginPanel.add(Box.createVerticalGlue());
+		loginPanel.add(login);
+		loginPanel.add(Box.createVerticalGlue());
+		getContentPane().add("Center", loginPanel);
+	}
+	
+	
 	
 
 	
