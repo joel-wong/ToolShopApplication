@@ -36,7 +36,7 @@ public class Server {
      */
     public void connectToClients(){
         try {
-            serverSocket = new ServerSocket(8000);
+            serverSocket = new ServerSocket(51151);
 
             if (serverSocket == null) {
                 System.err.println("Could not create server socket, exiting...");

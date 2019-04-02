@@ -106,7 +106,7 @@ public class Client {
      * @param args is unused
      */
     public static void main(String[] args) {
-        Client clientInstance = new Client("localhost", 8000);
+        Client clientInstance = new Client("localhost", 51151);
         ClientController clientController = new ClientController(clientInstance);
         MyFrame view = new MyFrame("Frame 1");
 

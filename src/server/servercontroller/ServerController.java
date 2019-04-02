@@ -2,6 +2,7 @@ package server.servercontroller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.SocketException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -63,6 +64,9 @@ public class ServerController implements Runnable {
                 input = "";
                 while(true) {
                     currentLine = in.readLine();
+                    if(currentLine == null) {
+                        return;
+                    }
                     if(currentLine.contains("\0")) {
                         input += currentLine.replaceAll("\0", "") + "\n";
                         break;
@@ -73,8 +77,13 @@ public class ServerController implements Runnable {
                 out.println(response + "\0");
             }
         }
+        catch (SocketException e) {
+            System.out.println("A client has disconnected.");
+            return;
+        }
         catch (IOException e) {
-            System.out.println("Returned error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
     }
 
