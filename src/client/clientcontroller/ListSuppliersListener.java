@@ -12,18 +12,18 @@ import javax.swing.ScrollPaneConstants;
 
 import client.clientview.MyFrame;
 
-public class ListToolsListener extends ListenerController {
+public class ListSuppliersListener extends ListenerController {
 
-	public ListToolsListener(MyFrame view, ClientController clientController) {
+	public ListSuppliersListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String s = clientController.listTools();
+		String s = clientController.listSuppliers();
 		
-		JTextArea display = new JTextArea(15, 25);
+		JTextArea display = new JTextArea(15, 35);
         display.setEditable(false); 
         display.setText(s);
         Font font = new Font("Ariel", Font.PLAIN, 14);
@@ -40,7 +40,7 @@ public class ListToolsListener extends ListenerController {
         String[] options = {"Return to MENU"};
     	
 	    JOptionPane.showOptionDialog(null, inventoryPanel, 
-	               "Inventory", JOptionPane.OK_OPTION, 1, view.getListIcon(), options, options[0] );
+	               "Supplier List", JOptionPane.OK_OPTION, 1, view.getListIcon(), options, options[0] );
 		
 	}
 }
