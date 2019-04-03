@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import client.clientview.LoginFrame;
 import client.clientview.MyFrame;
 
 /**
@@ -103,12 +105,12 @@ public class Client {
     public static void main(String[] args) {
         Client clientInstance = new Client("localhost", 51151);
         ClientController clientController = new ClientController(clientInstance);
-        MyFrame view = new MyFrame("Frame 1");
-        view.addLoginPanel();
         
-        LoginListener loginListener = new LoginListener(view,clientController);
+        LoginFrame loginView = new LoginFrame("Frame 1");
         
-        view.setVisible(true);
+        LoginListener loginListener = new LoginListener(loginView,clientController);
+        
+        loginView.setVisible(true);
 
         clientInstance.connectToServer();
 

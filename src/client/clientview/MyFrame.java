@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import client.clientcontroller.AddSupplierListener;
@@ -20,6 +24,7 @@ import client.clientcontroller.AddToolListener;
 import client.clientcontroller.CheckQuantityListener;
 import client.clientcontroller.DecreaseQuantityListener;
 import client.clientcontroller.DeleteToolListener;
+import client.clientcontroller.InactivityListener;
 import client.clientcontroller.IncreaseQuantityListener;
 import client.clientcontroller.ListSuppliersListener;
 import client.clientcontroller.ListToolsListener;
@@ -40,9 +45,7 @@ public class MyFrame extends JFrame{
 	private JButton addNewTool;
 	private JButton addNewSupplier;
 	private JButton setNewDate;
-	
-	private JButton login;
-	
+		
 	private ImageIcon listIcon;
 	private ImageIcon searchIcon;
 	private ImageIcon checkIcon;
@@ -52,7 +55,6 @@ public class MyFrame extends JFrame{
 	private ImageIcon addToolIcon;
 	private ImageIcon addSupplierIcon;
 	private ImageIcon setDateIcon;
-	private ImageIcon loginIcon;
 	
 	
 	public MyFrame(String s) {
@@ -62,8 +64,9 @@ public class MyFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Tool Shop Application");
 		createIcons();
-		
-		    
+		addButtonPanel();
+		addTitlePanel();
+		pack();
 	}
 	
 	public void addListener(ListToolsListener l) {
@@ -105,9 +108,7 @@ public class MyFrame extends JFrame{
 	public void addListener(SetDateListener l) {
 		setNewDate.addActionListener(l);
 	}
-	public void addListener(LoginListener l) {
-		login.addActionListener(l);
-	}
+	
 	
 	public ImageIcon getListIcon() {
 		return listIcon;
@@ -137,9 +138,7 @@ public class MyFrame extends JFrame{
 	public ImageIcon getSetDateIcon() {
 		return setDateIcon;
 	}
-	public ImageIcon getLoginIcon() {
-		return loginIcon;
-	}
+	
 	
 	public void createIcons() {
 		listIcon = new ImageIcon("listIcon.png");
@@ -151,7 +150,6 @@ public class MyFrame extends JFrame{
 		addToolIcon = new ImageIcon("addToolIcon.png");
 		addSupplierIcon = new ImageIcon("addSupplierIcon.png");
 		setDateIcon = new ImageIcon("setDateIcon.png");
-		loginIcon = new ImageIcon("loginIcon.png");
 	}
 	
 	
@@ -216,20 +214,23 @@ public class MyFrame extends JFrame{
 		getContentPane().add("North", titlePanel);
 	}
 	
-	public void addLoginPanel() {
-		JPanel loginPanel = new JPanel();
-		loginPanel.setBackground(new Color(169, 231, 252));
-		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
-		login = new JButton("Login", loginIcon);
-		
-		login.setAlignmentX(CENTER_ALIGNMENT);
-		
-		loginPanel.add(Box.createVerticalGlue());
-		loginPanel.add(login);
-		loginPanel.add(Box.createVerticalGlue());
-		getContentPane().add("Center", loginPanel);
-	}
+
 	
+	public void setAutomaticLogout(LoginFrame loginFrame) {
+		Action logout = new AbstractAction(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = (JFrame)e.getSource();
+				frame.dispose();	
+	    		JOptionPane.showMessageDialog(null, "Session timed out due to inactivity.", "Session Timed Out", JOptionPane.INFORMATION_MESSAGE);
+	    		loginFrame.setVisible(true);
+			}	
+		};
+		
+		InactivityListener l = new InactivityListener(this, logout, 1);
+		l.start();
+	}
 	
 	
 

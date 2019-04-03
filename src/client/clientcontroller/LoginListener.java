@@ -1,6 +1,7 @@
 package client.clientcontroller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -9,13 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import client.clientview.LoginFrame;
 import client.clientview.MyFrame;
 
-public class LoginListener extends ListenerController {
-
-	public LoginListener(MyFrame view, ClientController clientController) {
-		super(view, clientController);
-		view.addListener(this);
+public class LoginListener  implements ActionListener{
+	private LoginFrame loginView;
+	private ClientController clientController;
+	
+	public LoginListener(LoginFrame loginView, ClientController clientController) {
+		this.loginView = loginView;
+		this.clientController = clientController;
+		loginView.addListener(this);
 	}
 
 	@Override
@@ -32,7 +37,7 @@ public class LoginListener extends ListenerController {
 	    panel.add(passField);
 	    
 	    int result = JOptionPane.showOptionDialog(null, panel, 
-	               "Login", JOptionPane.OK_CANCEL_OPTION, 1, view.getLoginIcon(), null, "");
+	               "Login", JOptionPane.OK_CANCEL_OPTION, 1, loginView.getLoginIcon(), null, "");
 	    
 	   	
 	    if (result == JOptionPane.OK_OPTION) {
@@ -43,14 +48,14 @@ public class LoginListener extends ListenerController {
     		String response = "";
     		if(successfulLogin) {
     			response = "Successfully logged in.";
-    			JOptionPane.showMessageDialog(null, response, "Login", JOptionPane.INFORMATION_MESSAGE, view.getLoginIcon());
-    			view.setVisible(false);
+    			JOptionPane.showMessageDialog(null, response, "Login", JOptionPane.INFORMATION_MESSAGE, loginView.getLoginIcon());
+    			loginView.setVisible(false);
     			
     			MyFrame newView = new MyFrame("Frame 2");
-    			newView.addButtonPanel();
-    			newView.addTitlePanel();
-    			newView.pack();
+    			
+    			newView.setAutomaticLogout(loginView);
     			newView.setVisible(true);
+    			
     			ListToolsListener listToolsListener = new ListToolsListener(newView, clientController);
     	        ListSuppliersListener listSuppliersListener = new ListSuppliersListener(newView, clientController);
     	        SearchNameListener searchNameListener = new SearchNameListener(newView, clientController);
