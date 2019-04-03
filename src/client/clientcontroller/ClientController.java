@@ -76,7 +76,6 @@ public class ClientController {
 		return request(stringForRequest);
 	}
 
-	
 	public String request(String s) {
 		return client.request(s);
 	}
