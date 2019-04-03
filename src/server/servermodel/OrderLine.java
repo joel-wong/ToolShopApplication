@@ -57,7 +57,7 @@ public class OrderLine {
     public String toString() {
         String s =
                 "Item Description: \t" + itemDescription +
-                        "\nAmount Ordered : \t" + amountOrdered +
+                        "\nAmount Ordered: \t" + amountOrdered +
                         "\nSupplier Name: \t\t" + supplierName;
         return s;
     }

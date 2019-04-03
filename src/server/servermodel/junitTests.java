@@ -6,102 +6,116 @@ import java.util.*;
 
 // Test Suite for the Method SHufflepuff.sHuffle
 
-public class junitTests {
+public class JUnitTests {
 
-    // Test of the behaviour of sHuffle on input 0
-    // Expected Results: The integer 10 is returned
-
+    /** Test whether the Supplier toString() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test () {
-        assertTrue(SHufflepuff.sHuffle(0) == 10);
+    public void testSupplierToString () {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+
+        assertTrue(testSupplier.toString().equals("Supplier ID: 1000\n" +
+                                                  "Company Name: Test Supplier\n" +
+                                                  "Address: Test Address\n" +
+                                                  "Sales Contact: Test Sales Contact\n" +
+                                                  "Tools Supplied: -Test Tool 1 -Test Tool 2 "));
     }
 
-    // Test of the behaviour of sHuffle on input 1
-    // Expected Results: The integer 9 is returned
 
+    /** Test whether the Supplier getSupplierID() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_1 () {
-        assertTrue(SHufflepuff.sHuffle(1) == 9);
+    public void testSupplierGetSupplierID(){
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+
+        assertTrue(testSupplier.getSupplierID() == 1000);
     }
 
-    // Test of the behaviour of sHuffle on input 2
-    // Expected Results: The integer 8 is returned
 
+    /** Test whether the Supplier getCompanyName() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_2 () {
-        assertTrue(SHufflepuff.sHuffle(2) == 8);
+    public void testSupplierGetCompanyName() {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+
+        assertTrue(testSupplier.getCompanyName().equals("Test Supplier"));
     }
 
-    // Test of the behaviour of sHuffle on input 3
-    // Expected Results: The integer 7 is returned
 
+    /** Test whether the OrderLine toString() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_3 () {
-        assertTrue(SHufflepuff.sHuffle(3) == 7);
+    public void testOrderLineToString () {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+        OrderLine testOrderLine = new OrderLine(testTool1, 40);
+
+        assertTrue(testOrderLine.toString().equals("Item Description: \tTest Tool 1\n" +
+                                                   "Amount Ordered: \t40\n" +
+                                                   "Supplier Name: \t\tTest Supplier"));
     }
 
-    // Test of the behaviour of sHuffle on input 4
-    // Expected Results: The integer 6 is returned
-
+    /** Test whether the OrderLine getItemDescription() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_4 () {
-        assertTrue(SHufflepuff.sHuffle(4) == 6);
+    public void testOrderLineGetItemDescription () {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+        OrderLine testOrderLine = new OrderLine(testTool1, 40);
+
+        assertTrue(testOrderLine.getItemDescription().equals("Test Tool 1"));
     }
 
-    // Test of the behaviour of sHuffle on input 5
-    // Expected Results: The integer 5 is returned
-
+    /** Test whether the OrderLine getAmountOrdered method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_5 () {
-        assertTrue(SHufflepuff.sHuffle(5) == 5);
+    public void testOrderLineGetAmountOrdered() {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+        OrderLine testOrderLine = new OrderLine(testTool1, 40);
+
+        assertTrue(testOrderLine.getAmountOrdered() == 40);
     }
 
-    // Test of the behaviour of sHuffle on input 6
-    // Expected Results: The integer 4 is returned
-
+    /** Test whether the OrderLine getSupplierName() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_6 () {
-        assertTrue(SHufflepuff.sHuffle(6) == 4);
+    public void testOrderLineGetSupplierName () {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+        OrderLine testOrderLine = new OrderLine(testTool1, 40);
+
+        assertTrue(testOrderLine.getSupplierName().equals("Test Supplier"));
     }
 
-    // Test of the behaviour of sHuffle on input 7
-    // Expected Results: The integer 3 is returned
-
+    /** Test whether the OrderLine getPrice() method returns the desired results. Raise an AssertionError if not. */
     @Test
-    public void test_sHuffle_7 () {
-        assertTrue(SHufflepuff.sHuffle(7) == 3);
-    }
+    public void testOrderLineGetPrice () {
+        Supplier testSupplier = new Supplier(1000, "Test Supplier", "Test Address", "Test Sales Contact");
+        Tool testTool1 = new Tool(2000, "Test Tool 1", 10, 12.34);
+        testTool1.assignSupplier(testSupplier);
+        Tool testTool2 = new Tool(2001, "Test Tool 2", 20, 56.78);
+        testTool2.assignSupplier(testSupplier);
+        OrderLine testOrderLine = new OrderLine(testTool1, 40);
 
-    // Test of the behaviour of sHuffle on input 8
-    // Expected Results: The integer 2 is returned
-
-    @Test
-    public void test_sHuffle_8 () {
-        assertTrue(SHufflepuff.sHuffle(8) == 2);
-    }
-
-    // Test of the behaviour of sHuffle on input 9
-    // Expected Results: The integer 1 is returned
-
-    @Test
-    public void test_sHuffle_9 () {
-        assertTrue(SHufflepuff.sHuffle(9) == 1);
-    }
-
-    // Test of the behaviour of sHuffle on input 10
-    // Expected Results: The integer 0 is returned
-
-    @Test
-    public void test_sHuffle_10 () {
-        assertTrue(SHufflepuff.sHuffle(10) == 0);
-    }
-
-    // Test of the behaviour of sHuffle on input 11
-    // Expected Results: The integer -1 is returned
-
-    @Test
-    public void test_sHuffle_11 () {
-        assertTrue(SHufflepuff.sHuffle(11) == -1);
+        assertTrue(testOrderLine.getPrice() == 493.60);
     }
 
 }
