@@ -15,7 +15,6 @@ public class ClientController {
 	public String removeTools(int toolID, int amountRemoved) {
 		String stringForRequest = "6\n" + toolID + "\n" + amountRemoved;
 		return request(stringForRequest);
-		
 	}
 	
 	public String searchInventory(String toolName) {

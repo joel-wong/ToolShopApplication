@@ -8,7 +8,7 @@ package server.servermodel;
  * @version 1.0
  * @since February 6, 2019
  */
-public class Tool {
+public class Tool  n  {
     /**
      * The ID number associated with the Tool
      */
