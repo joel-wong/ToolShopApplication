@@ -39,7 +39,6 @@ class Authenticator {
 
         for (int i = 0; i < NUM_USERS; i++) {
             if (usernameTable[i].equals(username)) {
-                System.out.println(username);
                 if(passwordsTable[i].equals(password)) {
                     return "true";
                 }
