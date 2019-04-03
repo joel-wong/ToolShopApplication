@@ -7,7 +7,7 @@ import client.clientview.MyFrame;
 
 public class SearchNameListener extends ListenerController {
 
-	public SearchNameListener(MyFrame view, ClientController clientController) {
+	SearchNameListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}

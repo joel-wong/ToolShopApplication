@@ -12,7 +12,7 @@ import client.clientview.MyFrame;
 
 public class AddToolListener extends ListenerController {
 
-	public AddToolListener(MyFrame view, ClientController clientController) {
+	AddToolListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}

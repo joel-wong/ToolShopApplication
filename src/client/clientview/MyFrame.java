@@ -140,7 +140,7 @@ public class MyFrame extends JFrame{
 	}
 	
 	
-	public void createIcons() {
+	private void createIcons() {
 		listIcon = new ImageIcon("listIcon.png");
 		searchIcon = new ImageIcon("searchIcon.png");
 		checkIcon = new ImageIcon("checkIcon.png");
@@ -153,7 +153,7 @@ public class MyFrame extends JFrame{
 	}
 	
 	
-	public void addButtonPanel() {
+	private void addButtonPanel() {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		buttonPanel.setBackground(Color.WHITE);
@@ -202,7 +202,7 @@ public class MyFrame extends JFrame{
 	}
 	
 	
-	public void addTitlePanel() {
+	private void addTitlePanel() {
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		titlePanel.setLayout(new FlowLayout());

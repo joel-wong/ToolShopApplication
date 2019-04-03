@@ -7,75 +7,72 @@ public class ClientController {
 		this.client = client;
 	}
 	
-	public String listTools() {
+	String listTools() {
 		String stringForRequest = "1";
 		return request(stringForRequest);
 	}
 	
-	public String removeTools(int toolID, int amountRemoved) {
+	String removeTools(int toolID, int amountRemoved) {
 		String stringForRequest = "6\n" + toolID + "\n" + amountRemoved;
 		return request(stringForRequest);
 	}
 	
-	public String searchInventory(String toolName) {
+	String searchInventory(String toolName) {
 		String stringForRequest = "3\n" + toolName;
 		return request(stringForRequest);
 	}
 	
-	public String searchInventory(int toolID) {
+	String searchInventory(int toolID) {
 		String stringForRequest = "4\n" + toolID;
 		return request(stringForRequest);
 	}
 	
-	public String checkToolQuantity(int toolID) {
+	String checkToolQuantity(int toolID) {
 		String stringForRequest = "5\n" + toolID;
 		return request(stringForRequest);
 	}
 
-	public String listSuppliers() {
+	String listSuppliers() {
 		String stringForRequest = "2";
 		return request(stringForRequest);
 	}
 	
-	public String addTools(int toolID, int amountAdded) {
+	String addTools(int toolID, int amountAdded) {
 		String stringForRequest = "7\n" + toolID + "\n" + amountAdded;
 		return request(stringForRequest);
 	}
 
-	public String setNewDate(String month, int day, int year) {
+	String setNewDate(String month, int day, int year) {
 		String stringForRequest = "8\n" + month + "\n" + day + "\n" + year;
 		return request(stringForRequest);
 	}
 
-	public String deleteTool(int toolID) {
+	String deleteTool(int toolID) {
 		String stringForRequest = "9\n" + toolID;
 		return request(stringForRequest);
 	}
 
-	public String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
+	String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
 		String stringForRequest = "10\n" + toolID + "\n" + toolName + "\n" + quantity + "\n" + price + "\n" + supplierID;
 		return request(stringForRequest);
 	}
 
-	public String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
+	String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
 		String stringForRequest = "11\n" + supplierID + "\n" + companyName + "\n" + address + "\n" + salesContact;
 		return request(stringForRequest);
 	}
 
-	public boolean login(String username, String password) {
+	boolean login(String username, String password) {
 		String stringForRequest = "12\n" + username + "\n" + password;
-		if(request(stringForRequest).equals("true")) {
-			return true;
-		}
-		return false;
+		return request(stringForRequest).equals("true");
 	}
 
-	public String listOrders() {
+	String listOrders() {
 		String stringForRequest = "0";
 		return request(stringForRequest);
 	}
 
-	public String request(String s) {
+	private String request(String s) {
 		return client.request(s);
 	}
 	

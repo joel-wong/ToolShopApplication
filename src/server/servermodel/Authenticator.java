@@ -1,8 +1,8 @@
 package server.servermodel;
 
-public class Authenticator {
+class Authenticator {
 
-    public static String authenticate(String username, String password) {
+    static String authenticate(String username, String password) {
 
         int NUM_USERS = 5;
         String[] usernameTable = new String[NUM_USERS];

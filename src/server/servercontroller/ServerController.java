@@ -34,7 +34,7 @@ public class ServerController implements Runnable {
      * @param s is the socket
      * @param mark is the mark that the Player object will play with
      */
-    public ServerController(Socket clientSocket, ShopInterface shopInterfaceInstance) {
+    ServerController(Socket clientSocket, ShopInterface shopInterfaceInstance) {
         this.clientSocket = clientSocket;
         this.shopInterfaceInstance = shopInterfaceInstance;
     }
@@ -43,7 +43,7 @@ public class ServerController implements Runnable {
      *
      * @return true is the Thread has been able to connect to the client
      */
-    public boolean connectToClient(){
+    private boolean connectToClient(){
         try {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter((clientSocket.getOutputStream()), true);
@@ -55,7 +55,7 @@ public class ServerController implements Runnable {
         return true;
     }
 
-    public void serviceClient(){
+    private void serviceClient(){
         String input = "";
         String response = "";
         String currentLine = "";
@@ -87,7 +87,7 @@ public class ServerController implements Runnable {
         }
     }
 
-    public void closeStreams(){
+    private void closeStreams(){
         try {
             clientSocket.close();
             out.close();

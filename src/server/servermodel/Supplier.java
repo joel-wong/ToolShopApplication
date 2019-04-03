@@ -74,7 +74,7 @@ public class Supplier {
      *
      * @param tool is the new Tool to be added
      */
-    public void addTool(Tool tool) {
+    void addTool(Tool tool) {
         tools.add(tool);
     }
 
@@ -83,7 +83,7 @@ public class Supplier {
      *
      * @return the Supplier ID number
      */
-    public int getSupplierID() {
+    int getSupplierID() {
         return supplierID;
     }
 
@@ -92,7 +92,7 @@ public class Supplier {
      *
      * @return the Supplier company name
      */
-    public String getCompanyName() {
+    String getCompanyName() {
         return companyName;
     }
 }

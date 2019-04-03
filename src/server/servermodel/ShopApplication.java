@@ -85,9 +85,9 @@ public class ShopApplication implements Constants {
      * If the quantity of the Tool is less than the threshold, an automatic orderline is generated for the tool.
      *
      * @param fileName is the name of the file containing the Tool information
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If the file could not be loaded
      */
-    public void loadInventory(String fileName) throws FileNotFoundException {
+    private void loadInventory(String fileName) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(fileName)).useDelimiter("[;|\n\r]+");
         int toolID;
         String toolName;
@@ -120,9 +120,9 @@ public class ShopApplication implements Constants {
      * supplierID;companyName;address;salesContact\n.
      *
      * @param fileName is the name of the file containing the Supplier information
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If the file cannot be loaded
      */
-    public void loadSuppliers(String fileName) throws FileNotFoundException {
+    private void loadSuppliers(String fileName) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(fileName)).useDelimiter("[;|\n\r]+");
         int supplierID;
         String companyName;
@@ -149,7 +149,7 @@ public class ShopApplication implements Constants {
      * @param supplierID is the specified supplier ID
      * @return the Supplier object that has the matching supplier ID
      */
-    public Supplier searchSupplier(int supplierID) {
+    Supplier searchSupplier(int supplierID) {
         for (Supplier s : supplierList) {
             if (s.getSupplierID() == supplierID)
                 return s;
@@ -161,7 +161,7 @@ public class ShopApplication implements Constants {
     /**
      * Generates a new Order using the current Date of the Shop Application.
      */
-    public void generateNewOrder() {
+    void generateNewOrder() {
 
         order.newOrder(date.getMonth(), date.getDay(), date.getYear());
 
@@ -174,7 +174,7 @@ public class ShopApplication implements Constants {
      * @param tool            is the Tool to generate the orderline for
      * @param currentQuantity is the current quantity of the Tool
      */
-    public void generateDefaultOrderline(Tool tool, int currentQuantity) {
+    void generateDefaultOrderline(Tool tool, int currentQuantity) {
         order.addOrderLine(tool, itemQuantityMaximum - currentQuantity);
 //        System.out.println("Generated an orderline for item " + tool.getToolID());
         //The tool now has a pending order
@@ -187,7 +187,7 @@ public class ShopApplication implements Constants {
      * @param fileName is the name of the specified file
      * @throws IOException
      */
-    public void printOrderToFile(String fileName) {
+    void printOrderToFile(String fileName) {
         //call order toString method
         try {
             FileWriter f = new FileWriter(fileName, true);
@@ -206,7 +206,7 @@ public class ShopApplication implements Constants {
     /**
      * Print a list of all orders and their order items
      */
-    public String listOrders() {
+    String listOrders() {
         String stringToReturn = "\n\t\tList of Orders:\n\n";
         stringToReturn += lineOfEquals + "\n\n";
 //        for (int i = 0; i < orders.size(); i++) {
@@ -221,7 +221,7 @@ public class ShopApplication implements Constants {
     /**
      * Prints a lists of all the Tools in the inventory of the Shop Application.
      */
-    public String listTools() {
+    String listTools() {
         return inventory.listTools();
     }
 
@@ -230,7 +230,7 @@ public class ShopApplication implements Constants {
     /**
      * Prints a list of all the Suppliers in the Supplier list of the Shop Application.
      */
-    public String listSuppliers() {
+    String listSuppliers() {
         String supplierListString = "";
         for (Supplier s : supplierList) {
             supplierListString += s + "\n\n";
@@ -244,7 +244,7 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool name and then searches the inventory using the Tool name.
      * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
      */
-    public String searchInventoryByName(String toolName) {
+    String searchInventoryByName(String toolName) {
         //use Inventory method searchInventory
 
         Tool t = inventory.searchInventory(toolName);
@@ -264,7 +264,7 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool ID and then searches the inventory using the Tool ID.
      * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
      */
-    public String searchInventoryByID(int toolID) {
+    String searchInventoryByID(int toolID) {
         Tool t = null;
         t = inventory.searchInventory(toolID);
         if (t == null)
@@ -282,7 +282,7 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool ID and then prints the quantity of the tool corresponding to the Tool ID.
      * If the Tool ID does not corrospond to a Tool in the inventory the returned String indicates that.
      */
-    public String checkToolQuantity(int toolID) {
+    String checkToolQuantity(int toolID) {
         Tool t = null;
         t = inventory.searchInventory(toolID);
         if (t == null)
@@ -300,7 +300,7 @@ public class ShopApplication implements Constants {
      * If quantity of the tool is successfully decreased and the new quantity of the tool is below the threshold and
      * if there is no pending order, a default orderline for the tool is generated for the current Order of the shop application.
      */
-    public String removeTools(int toolID, int amountRemoved) {
+    String removeTools(int toolID, int amountRemoved) {
 
         Tool t = inventory.searchInventory(toolID);
         //Checking if an orderline needs to be generated
@@ -323,7 +323,7 @@ public class ShopApplication implements Constants {
      * Prompts the uses to enter a Tool ID and the amount to increase the quantity of the Tool by
      * and then increases the quantity of the corresponding Tool in the inventory.
      */
-    public String addTools(int toolID, int amountAdded) {
+    String addTools(int toolID, int amountAdded) {
         //use Inventory method: addTools
         return inventory.addTools(toolID, amountAdded);
     }
@@ -336,7 +336,7 @@ public class ShopApplication implements Constants {
      *
      * @throws IOException
      */
-    public String setNewDate(String month, int day, int year) {
+    String setNewDate(String month, int day, int year) {
         printOrderToFile(ordersFile);
 
         //changes the date
@@ -356,7 +356,7 @@ public class ShopApplication implements Constants {
     /**
      * Prompts the user to enter a Tool ID and then deletes the corresponding Tool from the Inventory.
      */
-    public String deleteTool(int toolID) {
+    String deleteTool(int toolID) {
         return inventory.deleteTool(toolID);
     }
 
@@ -368,7 +368,7 @@ public class ShopApplication implements Constants {
      * list of Suppliers. If the quantity of the tool is below the threshold,
      * a default orderline for the tool is generated for the current Order of the shop application.
      */
-    public String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
+    String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
         //use supplierID to go through supplierList and find the Supplier object
         //call the Inventory method addNewTool
         Supplier s = searchSupplier(supplierID);
@@ -392,7 +392,7 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter all the necessary information to add a new Supplier to the list
      * of Suppliers in the Application and then adds the new Supplier to the list.
      */
-    public String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
+    String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
         //use Supplier constructor
 
         supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
@@ -404,7 +404,7 @@ public class ShopApplication implements Constants {
 
     // 12.
     // Checks if a given username/password (hased with SHA512) is valid
-    public String checkLogin(String username, String hashedPassword) {
+    String checkLogin(String username, String hashedPassword) {
         return Authenticator.authenticate(username, hashedPassword);
     }
 

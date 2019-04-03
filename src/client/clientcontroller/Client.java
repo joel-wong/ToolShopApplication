@@ -46,7 +46,7 @@ public class Client {
         this.portNumber = portNumber;
     }
 
-    public void connectToServer() {
+    private void connectToServer() {
         try {
             aSocket = new Socket(hostName, portNumber);
             if (aSocket == null) {
@@ -67,7 +67,7 @@ public class Client {
      * Receives input and writes to socket,
      * then returns socket output.
      */
-    public String request(String stringToSendToServer) {
+    String request(String stringToSendToServer) {
 
 
         // send input to server
