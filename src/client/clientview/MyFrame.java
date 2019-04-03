@@ -26,6 +26,7 @@ import client.clientcontroller.DecreaseQuantityListener;
 import client.clientcontroller.DeleteToolListener;
 import client.clientcontroller.InactivityListener;
 import client.clientcontroller.IncreaseQuantityListener;
+import client.clientcontroller.ListOrdersListener;
 import client.clientcontroller.ListSuppliersListener;
 import client.clientcontroller.ListToolsListener;
 import client.clientcontroller.LoginListener;
@@ -45,6 +46,7 @@ public class MyFrame extends JFrame{
 	private JButton addNewTool;
 	private JButton addNewSupplier;
 	private JButton setNewDate;
+	private JButton listOrders;
 		
 	private ImageIcon listIcon;
 	private ImageIcon searchIcon;
@@ -107,6 +109,9 @@ public class MyFrame extends JFrame{
 	}
 	public void addListener(SetDateListener l) {
 		setNewDate.addActionListener(l);
+	}
+	public void addListener(ListOrdersListener l) {
+		listOrders.addActionListener(l);
 	}
 	
 	
@@ -171,6 +176,8 @@ public class MyFrame extends JFrame{
 		searchID.setFont(f);
 		checkQuantity = new JButton("Check Tool Quantity",checkIcon);
 		checkQuantity.setFont(f);
+		setNewDate = new JButton("Set New Date", setDateIcon);
+		setNewDate.setFont(f);
 		decreaseQuantity = new JButton("Decrease Tool Quantity", decreaseIcon);
 		decreaseQuantity.setFont(f);
 		increaseQuantity = new JButton("Increase Tool Quantity", increaseIcon);
@@ -181,21 +188,23 @@ public class MyFrame extends JFrame{
 		deleteTool.setFont(f);
 		addNewSupplier = new JButton("Add New Supplier", addSupplierIcon);
 		addNewSupplier.setFont(f);
-		setNewDate = new JButton("Set New Date", setDateIcon);
-		setNewDate.setFont(f);
+		listOrders = new JButton("List Orders", listIcon);
+		listOrders.setFont(f);
+		
 		
 		buttonPanel.add(listTools);
 		buttonPanel.add(listSuppliers);
 		buttonPanel.add(searchName);
 		buttonPanel.add(searchID);
 		buttonPanel.add(checkQuantity);
-		buttonPanel.add(Box.createVerticalGlue());
+		buttonPanel.add(setNewDate);
 		buttonPanel.add(decreaseQuantity);
 		buttonPanel.add(increaseQuantity);
 		buttonPanel.add(addNewTool);
 		buttonPanel.add(deleteTool);
 		buttonPanel.add(addNewSupplier);
-		buttonPanel.add(setNewDate);
+		buttonPanel.add(listOrders);
+		
 		
 		
 		getContentPane().add("Center", buttonPanel);
