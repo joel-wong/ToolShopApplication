@@ -50,7 +50,7 @@ public class ShopApplication implements Constants {
         setupShop();
     }
 
-    public void setupShop(){
+    private void setupShop(){
         ArrayList<Tool> toolList = new ArrayList<Tool>();
         Inventory inventory = new Inventory(toolList);
         ArrayList<Supplier> supplierList = new ArrayList<Supplier>();
@@ -233,7 +233,7 @@ public class ShopApplication implements Constants {
     public String listSuppliers() {
         String supplierListString = "";
         for (Supplier s : supplierList) {
-            supplierListString += s + "\n";
+            supplierListString += s + "\n\n";
         }
         return supplierListString;
     }
