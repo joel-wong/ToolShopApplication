@@ -1,9 +1,7 @@
 package client.clientcontroller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

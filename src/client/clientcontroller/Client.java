@@ -104,20 +104,10 @@ public class Client {
         Client clientInstance = new Client("localhost", 51151);
         ClientController clientController = new ClientController(clientInstance);
         MyFrame view = new MyFrame("Frame 1");
-
-        ListToolsListener listToolsListener = new ListToolsListener(view, clientController);
-        ListSuppliersListener listSuppliersListener = new ListSuppliersListener(view, clientController);
-        SearchNameListener searchNameListener = new SearchNameListener(view, clientController);
-        SearchIDListener searchIDListener = new SearchIDListener(view, clientController);
-        CheckQuantityListener checkQuantityListener = new CheckQuantityListener(view, clientController);
-        DecreaseQuantityListener decreaseQuantityListener = new DecreaseQuantityListener(view, clientController);
-        IncreaseQuantityListener increaseQuantityListener = new IncreaseQuantityListener(view, clientController);
-        AddToolListener addToolListener = new AddToolListener(view, clientController);
-        DeleteToolListener deleteToolListener = new DeleteToolListener(view, clientController);
-        AddSupplierListener addSupplierListener = new AddSupplierListener(view, clientController);
-        SetDateListener setDateListener = new SetDateListener(view, clientController);
-
-
+        view.addLoginPanel();
+        
+        LoginListener loginListener = new LoginListener(view,clientController);
+        
         view.setVisible(true);
 
         clientInstance.connectToServer();
