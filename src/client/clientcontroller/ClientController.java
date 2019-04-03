@@ -62,8 +62,6 @@ public class ClientController {
 		return request(stringForRequest);
 	}
 
-	/* FUNCTIONS THAT WENDY NEEDS TO ADD TO GUI -------------------------------------------------------------------------------*/
-
 	public boolean login(String username, String password) {
 		String hashedPassword = PasswordHashHelper.hashPassword(password);
 		String stringForRequest = "12\n" + username + "\n" + hashedPassword;
@@ -73,7 +71,10 @@ public class ClientController {
 		return false;
 	}
 
-	/* END OF FUNCTIONS THAT WENDY NEEDS TO ADD TO GUI ----------------------------------------------------------------------- */
+	public String listOrders() {
+		String stringForRequest = "0";
+		return request(stringForRequest);
+	}
 
 	
 	public String request(String s) {

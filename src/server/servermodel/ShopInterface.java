@@ -41,7 +41,7 @@ public class ShopInterface {
             }
             switch (menuItem) {
                 case 0:
-                    return shopApplicationInstance.menu();
+                    return shopApplicationInstance.listOrders();
 
                 case 1:
                     return shopApplicationInstance.listTools();

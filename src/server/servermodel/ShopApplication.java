@@ -138,11 +138,6 @@ public class ShopApplication implements Constants {
                 sc.nextLine();
             }
 
-//            System.out.println(supplierID);
-//            System.out.println(companyName);
-//            System.out.println(address);
-//            System.out.println(salesContact);
-
             supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
         }
     }
@@ -206,33 +201,20 @@ public class ShopApplication implements Constants {
         }
     }
 
-    /**
-     * Prints the menu choices for the Shop Application.
-     */
-    public String menu() {
-        String menu = "";
-        menu += lineOfEquals + "\n";
-        menu += lineOfEqualsWithMenuInCenter + "\n";
-        menu += lineOfEquals + "\n";
-        menu += "Current Order date: " + date + "\n";
-        menu += "1.\tList all tools in inventory" + "\n";
-        menu += "2.\tList suppliers" + "\n";
-        menu += "3.\tSearch for tool by tool name" + "\n";
-        menu += "4.\tSearch for tool by tool id" + "\n";
-        menu += "5.\tCheck item quantity" + "\n";
-        menu += "6.\tDecrease item quantity" + "\n";
-        menu += "7.\tIncrease item quantity" + "\n";
-        menu += "8.\tChange the date. Prints current order to file " + ordersFile + " and generates new order with new date." + "\n";
-        menu += "9.\tDelete tool from inventory" + "\n";
-        menu += "10.\tAdd new tool to inventory" + "\n";
-        menu += "11.\tAdd new supplier" + "\n";
-        menu += "12.\tQuit. Prints current order to file " + ordersFile + "." + "\n";
-        menu += lineOfEquals + "\n";
-        menu += "Please enter a menu number to perform the corresponding task:";
-        return menu;
-    }
+    //0.
 
-    //MENU TASKS
+    /**
+     * Print a list of all orders and their order items
+     */
+    public String listOrders() {
+        String stringToReturn = "\n\t\tList of Orders:\n\n";
+//        for (int i = 0; i < orders.size(); i++) {
+            stringToReturn += lineOfEquals + "\n\n";
+            stringToReturn += order.toString();
+//        }
+        stringToReturn += lineOfEquals;
+        return stringToReturn;
+    }
 
     //1.
 
@@ -425,4 +407,6 @@ public class ShopApplication implements Constants {
     public String checkLogin(String username, String hashedPassword) {
         return Authenticator.authenticate(username, hashedPassword);
     }
+
+    // 13.
 }
