@@ -23,9 +23,9 @@ public class Server {
     private ShopApplication shopApplicationInstance;
 
     /**
-     * The instantiation of the shopInterface on the server, used to decode message and call the appropriate ShopApplication functions
+     * The instantiation of the shopManager on the server, used to decode message and call the appropriate ShopApplication functions
      */
-    private ShopInterface shopInterfaceInstance;
+    private ShopManager shopManagerInstance;
 
     /**
      * Construct a Server on localhost:8000 and a create fixed thread pool.
@@ -65,7 +65,7 @@ public class Server {
 
             while (true) {
                 // wait for someone to connect, make a new thread when they do.
-                ServerController newConnection = new ServerController(serverSocket.accept(), shopInterfaceInstance);
+                ServerController newConnection = new ServerController(serverSocket.accept(), shopManagerInstance);
                 System.out.println("Someone has connected.");
 
                 pool.execute(newConnection);
@@ -92,14 +92,14 @@ public class Server {
         shopApplicationInstance = new ShopApplication();
     }
 
-    private void setupShopInterface(){
-        shopInterfaceInstance = new ShopInterface(shopApplicationInstance);
+    private void setupShopManager(){
+        shopManagerInstance = new ShopManager(shopApplicationInstance);
     }
 
     private void setupAndRun() {
         // create server to connect to clients
         setupShop();
-        setupShopInterface();
+        setupShopManager();
         connectToClients();
         runToolShopServer();
         closeStreams();
