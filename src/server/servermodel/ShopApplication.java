@@ -208,11 +208,11 @@ public class ShopApplication implements Constants {
      */
     public String listOrders() {
         String stringToReturn = "\n\t\tList of Orders:\n\n";
+        stringToReturn += lineOfEquals + "\n\n";
 //        for (int i = 0; i < orders.size(); i++) {
-            stringToReturn += lineOfEquals + "\n\n";
-            stringToReturn += order.toString();
+            stringToReturn += order.toString() + "\n";
 //        }
-        stringToReturn += lineOfEquals;
+        stringToReturn += "\n" + lineOfEquals;
         return stringToReturn;
     }
 

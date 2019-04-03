@@ -111,7 +111,7 @@ public class Client {
         view.setVisible(true);
 
         clientInstance.connectToServer();
-        clientController.listOrders();
+        System.out.println(clientController.listOrders());
         // connections will be closed automatically
     }
 }
