@@ -13,7 +13,7 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
     public ResultSet getAllTools() {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM tooltable ORDER BY `tool_id` ASC");
+                    "SELECT * FROM toolshopdatabase.tooltable ORDER BY tool_id ASC");
             return readQuery(statement);
         }
         catch(SQLException e){

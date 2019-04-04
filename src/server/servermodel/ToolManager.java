@@ -25,7 +25,7 @@ public class ToolManager implements Constants {
             ResultSet toolList = toolDatabaseTableManager.getAllTools();
             while(toolList.next()) {
                 // This could be made much more efficient later, but for now it is okay ---------------------------------------------------------------------------
-                toolListString += "Tool ID: " + toolList.getInt("supplier_id") +
+                toolListString += "Tool ID: " + toolList.getInt("tool_id") +
                         "\nTool Name: " + toolList.getString("tool_name") +
                         "\nQuantity in Stock: " + toolList.getInt("quantity_in_stock") +
                         "\nPrice: " + toolList.getDouble("price") +
@@ -81,7 +81,7 @@ public class ToolManager implements Constants {
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
         try{
             if(toolReturned.next()){
-                return "Quantity:" + toolReturned.getInt("quantity_in_stock") + "\n";
+                return "Quantity: " + toolReturned.getInt("quantity_in_stock") + "\n";
             }
             else {
                 return "Sorry, tool was not found.\n";
@@ -168,7 +168,7 @@ public class ToolManager implements Constants {
         try{
             if(toolReturned.next()){
                 String response = "Tool found: \n\n";
-                response += "Tool ID: " + toolReturned.getInt("supplier_id") +
+                response += "Tool ID: " + toolReturned.getInt("tool_id") +
                         "\nTool Name: " + toolReturned.getString("tool_name") +
                         "\nQuantity in Stock: " + toolReturned.getInt("quantity_in_stock") +
                         "\nPrice: " + toolReturned.getDouble("price") +

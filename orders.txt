@@ -50,3 +50,7 @@ Amount Ordered : 	28
 Supplier Name: 		Horks and Stuff Manufacturing
 
 *******************************************************************
+ORDER ID: 		17461
+Date Ordered: 		April 4, 2019
+
+*******************************************************************

@@ -13,7 +13,7 @@ public class SupplierDatabaseTableManager extends DatabaseTableManager {
     public ResultSet getAllSuppliers() {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM suppliertable ORDER_BY supplier_id");
+                    "SELECT * FROM toolshopdatabase.suppliertable ORDER BY supplier_id ASC");
             return readQuery(statement);
         }
         catch(SQLException e){
@@ -44,7 +44,7 @@ public class SupplierDatabaseTableManager extends DatabaseTableManager {
     public ResultSet searchSupplier(int supplierID) {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM suppliertable WHERE supplier_id = ?");
+                    "SELECT * FROM `toolshopdatabase`.`suppliertable` WHERE supplier_id = ?");
             statement.setInt(1, supplierID);
             return readQuery(statement);
         }

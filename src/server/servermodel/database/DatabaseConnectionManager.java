@@ -48,7 +48,7 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
 
     void insertQuery(PreparedStatement preparedStatement) {
         try {
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         }
         catch(SQLException e) {
             System.err.println("Error when writing to database");
@@ -62,7 +62,7 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
             preparedStatement.executeUpdate();
         }
         catch(SQLException e) {
-            System.err.println("Error when writing to database");
+            System.err.println("Error when updating database");
             System.err.println(e.getMessage());;
             System.exit(-1);
         }
