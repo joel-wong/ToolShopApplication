@@ -7,7 +7,7 @@ import server.servermodel.database.ToolDatabaseTableManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ToolManager {
+public class ToolManager implements Constants {
 
     private SupplierDatabaseTableManager supplierDatabaseTableManager;
 
@@ -39,6 +39,9 @@ public class ToolManager {
     }
 
     String addTool(int toolID, String toolName, int quantityInStock, double price, boolean already_pending_order, int supplierID) {
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
         ResultSet existingTool = toolDatabaseTableManager.searchToolByID(toolID);
         try{
             if(existingTool.next()){
@@ -59,6 +62,9 @@ public class ToolManager {
     }
 
     String searchToolByID(int toolID){
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
         return getToolDetailsAsString(toolReturned);
     }
@@ -69,10 +75,85 @@ public class ToolManager {
     }
 
     String getToolQuantity(int toolID) {
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
         try{
             if(toolReturned.next()){
                 return "Quantity:" + toolReturned.getInt("quantity_in_stock") + "\n";
+            }
+            else {
+                return "Sorry, tool was not found.\n";
+            }
+        }
+        catch(SQLException e) {
+            return "Error in SQL. Please contact the developers for more details";
+        }
+    }
+
+    String deleteTool(int toolID) {
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
+        ResultSet existingTool = toolDatabaseTableManager.searchToolByID(toolID);
+        try{
+            if(!existingTool.next()){
+                return "That tool does not exist\n";
+            }
+            else {
+                toolDatabaseTableManager.deleteTool(toolID);
+                return "Tool successfully deleted.\n";
+            }
+        }
+        catch(SQLException e) {
+            return "Error in SQL. Please contact the developers for more details\n";
+        }
+    }
+
+    String increaseToolQuantity(int toolID, int amountAdded) {
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
+        ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
+        try{
+            if(toolReturned.next()){
+                int quantityLeft = toolReturned.getInt("quantity_in_stock");
+                int newQuantity = quantityLeft + amountAdded;
+                toolDatabaseTableManager.changeToolQuantity(toolID, newQuantity);
+                return "New quantity is " + newQuantity + ".\n";
+            }
+            else {
+                return "Sorry, tool was not found.\n";
+            }
+        }
+        catch(SQLException e) {
+            return "Error in SQL. Please contact the developers for more details";
+        }
+    }
+
+    String decreaseToolQuantity(int toolID, int amountRemoved) {
+        if (toolID < 1) {
+            return "Tool ID must be positive.\n";
+        }
+        ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
+        try{
+            if(toolReturned.next()){
+                int quantityLeft = toolReturned.getInt("quantity_in_stock");
+                if (quantityLeft < amountRemoved) {
+                    return "Sorry, there is only " + quantityLeft + " " + toolReturned.getString("tool_name") + "s remaining";
+                }
+                else {
+                    int newQuantity = quantityLeft - amountRemoved;
+                    toolDatabaseTableManager.changeToolQuantity(toolID, newQuantity);
+                    if (newQuantity < itemQuantityMinimum) {
+//                        CREATE ORDER HERE
+                        return "New quantity is " + newQuantity + ". An order has been generated.";
+                    }
+                    else {
+                        return "New quantity is " + newQuantity;
+                    }
+                }
             }
             else {
                 return "Sorry, tool was not found.\n";

@@ -32,7 +32,7 @@ public class SupplierDatabaseTableManager extends DatabaseTableManager {
             statement.setString(2, companyName);
             statement.setString(3, address);
             statement.setString(4, salesContact);
-            writeQuery(statement);
+            insertQuery(statement);
         }
         catch(SQLException e){
             System.err.println("Invalid statement");

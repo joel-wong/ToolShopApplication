@@ -16,7 +16,11 @@ class DatabaseTableManager {
         return databaseConnectionManager.readQuery(preparedStatement);
     }
 
-    void writeQuery(PreparedStatement preparedStatement) {
-        databaseConnectionManager.writeQuery(preparedStatement);
+    void insertQuery(PreparedStatement preparedStatement) {
+        databaseConnectionManager.insertQuery(preparedStatement);
+    }
+
+    void updateQuery(PreparedStatement preparedStatement){
+        databaseConnectionManager.updateQuery(preparedStatement);
     }
 }

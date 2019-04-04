@@ -27,14 +27,6 @@ import java.text.SimpleDateFormat;
  */
 public class ShopApplication implements Constants {
     /**
-     * Inventory of the Tool Shop
-     */
-    private Inventory inventory;
-    /**
-     * Supplier List of all the Suppliers of the Tools in the Tool Shop
-     */
-    private ArrayList<Supplier> supplierList;
-    /**
      * Current Order of the day that is being edited by the application
      */
     private Order order;
@@ -60,7 +52,6 @@ public class ShopApplication implements Constants {
 
     private void setupShop(){
         ArrayList<Tool> toolList = new ArrayList<Tool>();
-        Inventory inventory = new Inventory(toolList);
         ArrayList<Supplier> supplierList = new ArrayList<Supplier>();
         Order order = new Order();
         Calendar javaDate = Calendar.getInstance();
@@ -68,8 +59,6 @@ public class ShopApplication implements Constants {
         String currentMonth = formatter.format(javaDate.getTime());
         Date currentDate = new Date(currentMonth, javaDate.get(Calendar.DAY_OF_MONTH), javaDate.get(Calendar.YEAR));
 
-        this.inventory = inventory;
-        this.supplierList = supplierList;
         this.order = order;
         this.date = currentDate;
 
@@ -80,96 +69,6 @@ public class ShopApplication implements Constants {
         this.authenticator = new Authenticator(databaseConnectionManager);
 
         generateNewOrder();
-
-        //loading in the supplier and item information from the text files into the Application
-        try {
-            loadSuppliers("suppliers.txt");
-            loadInventory("items.txt");
-        }
-        catch (FileNotFoundException e) {
-            System.err.println("File not found:" + e.getMessage());
-            System.exit(-1);
-        }
-    }
-
-    /**
-     * Loads the inventory with Tool information found in the specified file.
-     * Assumes that information in the file is in the following format:
-     * toolID;toolName;quantity;price;supplierID\n.
-     * If the quantity of the Tool is less than the threshold, an automatic orderline is generated for the tool.
-     *
-     * @param fileName is the name of the file containing the Tool information
-     * @throws FileNotFoundException If the file could not be loaded
-     */
-    private void loadInventory(String fileName) throws FileNotFoundException {
-        Scanner sc = new Scanner(new File(fileName)).useDelimiter("[;|\n\r]+");
-        int toolID;
-        String toolName;
-        int quantity;
-        double price;
-    int supplierID;
-
-        while (sc.hasNextInt()) {
-            toolID = sc.nextInt();
-            toolName = sc.next();
-            quantity = sc.nextInt();
-            price = sc.nextDouble();
-            supplierID = sc.nextInt();
-            if(sc.hasNextLine()) {
-                sc.nextLine();
-            }
-
-            inventory.addNewTool(toolID, toolName, quantity, price, searchSupplier(supplierID));
-
-            if (quantity < itemQuantityMinimum) {
-                Tool t = inventory.searchInventory(toolID);
-                generateDefaultOrderline(t, quantity);
-
-            }
-        }
-    }
-
-    /**
-     * Loads the Supplier list with Supplier information found in the specified file.
-     * Assumes that information in the file is in the following format:
-     * supplierID;companyName;address;salesContact\n.
-     *
-     * @param fileName is the name of the file containing the Supplier information
-     * @throws FileNotFoundException If the file cannot be loaded
-     */
-    private void loadSuppliers(String fileName) throws FileNotFoundException {
-        Scanner sc = new Scanner(new File(fileName)).useDelimiter("[;|\n\r]+");
-        int supplierID;
-        String companyName;
-        String address;
-        String salesContact;
-
-        while (sc.hasNext()) {
-            supplierID = sc.nextInt();
-            companyName = sc.next();
-            address = sc.next();
-            salesContact = sc.next();
-            if(sc.hasNextLine()) {
-                sc.nextLine();
-            }
-            supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
-        }
-    }
-
-    /**
-     * Searches the Supplier list using a given supplier ID number.
-     * If the given supplier ID does not match a supplier ID in the Supplier list then returns null.
-     *
-     * @param supplierID is the specified supplier ID
-     * @return the Supplier object that has the matching supplier ID
-     */
-    Supplier searchSupplier(int supplierID) {
-        for (Supplier s : supplierList) {
-            if (s.getSupplierID() == supplierID)
-                return s;
-        }
-
-        return null;
     }
 
     /**
@@ -199,7 +98,6 @@ public class ShopApplication implements Constants {
      * Prints the current Order of the Shop Application to the specified file.
      *
      * @param fileName is the name of the specified file
-     * @throws IOException
      */
     void printOrderToFile(String fileName) {
         //call order toString method
@@ -287,22 +185,8 @@ public class ShopApplication implements Constants {
      * If quantity of the tool is successfully decreased and the new quantity of the tool is below the threshold and
      * if there is no pending order, a default orderline for the tool is generated for the current Order of the shop application.
      */
-    String removeTools(int toolID, int amountRemoved) {
-
-        Tool t = inventory.searchInventory(toolID);
-        //Checking if an orderline needs to be generated
-        if (t != null){
-            String response = inventory.removeTools(toolID, amountRemoved);
-            int quantityLeft = inventory.checkToolQuantity(toolID);
-            if (quantityLeft < itemQuantityMinimum && !t.checkAlreadyPendingOrder()) {
-                generateDefaultOrderline(t, quantityLeft);
-                response += "A new order has been created\n";
-            }
-            return response;
-        }
-        else {
-            return "Sorry, that tool was not found\n";
-        }
+    String decreaseToolQuantity(int toolID, int amountRemoved) {
+        return toolManager.decreaseToolQuantity(toolID, amountRemoved);
     }
     //7.
 
@@ -310,9 +194,9 @@ public class ShopApplication implements Constants {
      * Prompts the uses to enter a Tool ID and the amount to increase the quantity of the Tool by
      * and then increases the quantity of the corresponding Tool in the inventory.
      */
-    String addTools(int toolID, int amountAdded) {
+    String increaseToolQuantity(int toolID, int amountAdded) {
         //use Inventory method: addTools
-        return inventory.addTools(toolID, amountAdded);
+        return toolManager.increaseToolQuantity(toolID, amountAdded);
     }
 
     //8.
@@ -320,8 +204,6 @@ public class ShopApplication implements Constants {
     /**
      * Prompts the user to enter a month, day, and year to set the new Date for the application and then
      * prints the current Order to a default file and creates a new Order with the user specified date.
-     *
-     * @throws IOException
      */
     String setNewDate(String month, int day, int year) {
         printOrderToFile(ordersFile);
@@ -344,7 +226,7 @@ public class ShopApplication implements Constants {
      * Prompts the user to enter a Tool ID and then deletes the corresponding Tool from the Inventory.
      */
     String deleteTool(int toolID) {
-        return inventory.deleteTool(toolID);
+        return toolManager.deleteTool(toolID);
     }
 
     //10.
@@ -369,7 +251,6 @@ public class ShopApplication implements Constants {
      * of Suppliers in the Application and then adds the new Supplier to the list.
      */
     String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
-        //use Supplier constructor
         return supplierManager.addSupplier(supplierID, companyName, address, salesContact);
 
     }

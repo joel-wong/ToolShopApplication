@@ -46,7 +46,18 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
         return null;
     }
 
-    void writeQuery(PreparedStatement preparedStatement) {
+    void insertQuery(PreparedStatement preparedStatement) {
+        try {
+            preparedStatement.executeQuery();
+        }
+        catch(SQLException e) {
+            System.err.println("Error when writing to database");
+            System.err.println(e.getMessage());;
+            System.exit(-1);
+        }
+    }
+
+    void updateQuery(PreparedStatement preparedStatement) {
         try {
             preparedStatement.executeUpdate();
         }

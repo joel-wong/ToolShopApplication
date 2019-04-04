@@ -83,7 +83,7 @@ public class ShopManager {
                     catch (InputMismatchException e) {
                         return "The String sent by the client to the server to remove tools was in an invalid format.";
                     }
-                    return shopApplicationInstance.removeTools(toolIDCase6, amountRemoved);
+                    return shopApplicationInstance.decreaseToolQuantity(toolIDCase6, amountRemoved);
 
                 case 7:
                     int toolIDCase7, amountAdded;
@@ -94,7 +94,7 @@ public class ShopManager {
                     catch (InputMismatchException e) {
                         return "The String sent by the client to the server to add tools was in an invalid format.";
                     }
-                    return shopApplicationInstance.addTools(toolIDCase7, amountAdded);
+                    return shopApplicationInstance.increaseToolQuantity(toolIDCase7, amountAdded);
 
                 case 8:
                     String month;

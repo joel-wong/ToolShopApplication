@@ -13,7 +13,7 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
     public ResultSet getAllTools() {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM tooltable ORDER BY tool_id ASC");
+                    "SELECT * FROM tooltable ORDER BY `tool_id` ASC");
             return readQuery(statement);
         }
         catch(SQLException e){
@@ -47,7 +47,21 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
             statement.setDouble(4, price);
             statement.setBoolean(5, already_pending_order);
             statement.setInt(6, supplierID);
-            writeQuery(statement);
+            insertQuery(statement);
+        }
+        catch(SQLException e){
+            System.err.println("Invalid statement");
+            System.err.println(e.getMessage());
+            System.exit(-1);
+        }
+    }
+
+    public void deleteTool(int toolID) {
+        try {
+            PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
+                    "DELETE FROM tooltable WHERE tool_id = ?");
+            statement.setInt(1, toolID);
+            insertQuery(statement);
         }
         catch(SQLException e){
             System.err.println("Invalid statement");
@@ -69,6 +83,22 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
             System.exit(-1);
         }
         return null;
+    }
+
+    public void changeToolQuantity(int toolID, int newQuantity) {
+
+        try {
+            PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
+                    "UPDATE `toolshopdatabase`.`tooltable` SET `quantity_in_stock` = ? WHERE (`tool_id` = ?);");
+            statement.setInt(1, newQuantity);
+            statement.setInt(2, toolID);
+            updateQuery(statement);
+        }
+        catch(SQLException e){
+            System.err.println("Invalid statement");
+            System.err.println(e.getMessage());
+            System.exit(-1);
+        }
     }
 
     public ResultSet searchToolByName(String toolName) {
