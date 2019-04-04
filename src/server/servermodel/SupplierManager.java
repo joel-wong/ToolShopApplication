@@ -45,4 +45,20 @@ public class SupplierManager {
         return supplierListString;
     }
 
+    String addSupplier(int supplierID, String companyName, String address, String salesContact) {
+        ResultSet resultSet = supplierDatabaseTableManager.searchSupplier(supplierID);
+        try{
+            if(resultSet.next()){
+               return "A supplier with that ID already exists.";
+            }
+            else {
+                supplierDatabaseTableManager.addSupplier(supplierID, companyName, address, salesContact);
+                return "Supplier successfully added.";
+            }
+        }
+        catch(SQLException e) {
+            return "Error in SQL. Please contact the developers for more details";
+        }
+    }
+
 }

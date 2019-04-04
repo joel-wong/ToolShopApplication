@@ -45,6 +45,7 @@ public class ShopApplication implements Constants {
 
     private SupplierManager supplierManager;
     private OrderManager orderManager;
+    private ToolManager toolManager;
 //    private ToolManager toolManager; Will be added later
 
 
@@ -52,10 +53,6 @@ public class ShopApplication implements Constants {
      * Constructs a ShopApplication object assigned with the specified inventory, supplier list, order, and date.
      * Generates a new order for the day.
      *
-     * @param inventory    is the ShopApplication's inventory
-     * @param supplierList is the ShopApplication's supplier list
-     * @param order        is the ShopApplication's order
-     * @param date         is the ShopApplication's date
      */
     public ShopApplication() {
         setupShop();
@@ -79,6 +76,7 @@ public class ShopApplication implements Constants {
         DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
         this.supplierManager = new SupplierManager(databaseConnectionManager);
         this.orderManager = new OrderManager(databaseConnectionManager);
+        this.toolManager = new ToolManager(databaseConnectionManager);
 //        this.toolManager = new ToolManager(databaseConnectionManager);
 
         generateNewOrder();
@@ -109,7 +107,7 @@ public class ShopApplication implements Constants {
         String toolName;
         int quantity;
         double price;
-        int supplierID;
+    int supplierID;
 
         while (sc.hasNextInt()) {
             toolID = sc.nextInt();
@@ -122,6 +120,7 @@ public class ShopApplication implements Constants {
             }
 
             inventory.addNewTool(toolID, toolName, quantity, price, searchSupplier(supplierID));
+
             if (quantity < itemQuantityMinimum) {
                 Tool t = inventory.searchInventory(toolID);
                 generateDefaultOrderline(t, quantity);
@@ -153,7 +152,6 @@ public class ShopApplication implements Constants {
             if(sc.hasNextLine()) {
                 sc.nextLine();
             }
-
             supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
         }
     }
