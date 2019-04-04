@@ -67,7 +67,7 @@ public class OrderLine {
      *
      * @return the item description
      */
-    public String getItemDescription() {
+    String getItemDescription() {
         return itemDescription;
     }
 
@@ -76,7 +76,7 @@ public class OrderLine {
      *
      * @return the amount ordered
      */
-    public int getAmountOrdered() {
+    int getAmountOrdered() {
         return amountOrdered;
     }
 
@@ -85,7 +85,7 @@ public class OrderLine {
      *
      * @return the Supplier name
      */
-    public String getSupplierName() {
+    String getSupplierName() {
         return supplierName;
     }
 
@@ -94,7 +94,7 @@ public class OrderLine {
      *
      * @return the total orderline price
      */
-    public double getPrice() {
+    double getPrice() {
         return price;
     }
 

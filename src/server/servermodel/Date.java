@@ -48,7 +48,7 @@ public class Date {
      *
      * @return the month
      */
-    public String getMonth() {
+    String getMonth() {
         return month;
     }
 
@@ -57,7 +57,7 @@ public class Date {
      *
      * @return the day
      */
-    public int getDay() {
+    int getDay() {
         return day;
     }
 
@@ -66,7 +66,7 @@ public class Date {
      *
      * @return the year
      */
-    public int getYear() {
+    int getYear() {
         return year;
     }
 
@@ -75,7 +75,7 @@ public class Date {
      *
      * @param month is the new month
      */
-    public void setMonth(String month) {
+    void setMonth(String month) {
         this.month = month;
     }
 
@@ -84,7 +84,7 @@ public class Date {
      *
      * @param day is the new day
      */
-    public void setDay(int day) {
+    void setDay(int day) {
         this.day = day;
     }
 
@@ -93,7 +93,7 @@ public class Date {
      *
      * @param year is the new year
      */
-    public void setYear(int year) {
+    void setYear(int year) {
         this.year = year;
     }
 }

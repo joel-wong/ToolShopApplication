@@ -8,7 +8,7 @@ import client.clientview.MyFrame;
 
 public class DeleteToolListener extends ListenerController {
 
-	public DeleteToolListener(MyFrame view, ClientController clientController) {
+	DeleteToolListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}

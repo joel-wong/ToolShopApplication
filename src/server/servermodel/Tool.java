@@ -59,7 +59,7 @@ public class Tool {
      *
      * @param supplier is the associated Supplier object
      */
-    public void assignSupplier(Supplier supplier) {
+    void assignSupplier(Supplier supplier) {
         this.supplier = supplier;
 
         //adds this Tool to the list of tools sold by the Supplier object
@@ -84,7 +84,7 @@ public class Tool {
      *
      * @return the Tool ID number
      */
-    public int getToolID() {
+    int getToolID() {
         return toolID;
     }
 
@@ -93,7 +93,7 @@ public class Tool {
      *
      * @return the Tool name
      */
-    public String getToolName() {
+    String getToolName() {
         return toolName;
     }
 
@@ -102,7 +102,7 @@ public class Tool {
      *
      * @return the Tool quantity
      */
-    public int getToolQuantity() {
+    int getToolQuantity() {
         return quantityInStock;
     }
 
@@ -111,7 +111,7 @@ public class Tool {
      *
      * @return the associated Supplier
      */
-    public Supplier getSupplier() {
+    Supplier getSupplier() {
         return supplier;
     }
 
@@ -120,7 +120,7 @@ public class Tool {
      *
      * @return the Tool price
      */
-    public double getPrice() {
+    double getPrice() {
         return price;
     }
 
@@ -129,7 +129,7 @@ public class Tool {
      *
      * @return true if there is a pending order, other returns false.
      */
-    public boolean checkAlreadyPendingOrder() {
+    boolean checkAlreadyPendingOrder() {
         return alreadyPendingOrder;
     }
 
@@ -138,7 +138,7 @@ public class Tool {
      *
      * @param b is the new order pending status of the Tool
      */
-    public void setPendingOrder(boolean b) {
+    void setPendingOrder(boolean b) {
         alreadyPendingOrder = b;
     }
 
@@ -147,7 +147,7 @@ public class Tool {
      *
      * @param n is the amount to increase the quantity by
      */
-    public void increaseQuantity(int n) {
+    void increaseQuantity(int n) {
         quantityInStock += n;
     }
 
@@ -158,7 +158,7 @@ public class Tool {
      *
      * @param n is the amount to decrease the quantity by
      */
-    public void decreaseQuantity(int n) {
+    void decreaseQuantity(int n) {
         if (n > quantityInStock)
             return;
 

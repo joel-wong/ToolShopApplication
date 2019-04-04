@@ -12,7 +12,7 @@ import client.clientview.MyFrame;
 
 public class AddSupplierListener extends ListenerController {
 
-	public AddSupplierListener(MyFrame view, ClientController clientController) {
+	AddSupplierListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}

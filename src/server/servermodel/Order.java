@@ -35,7 +35,7 @@ public class Order {
      * @param day   is the day of the Order
      * @param year  is the year of the Order
      */
-    public void newOrder(String month, int day, int year) {
+    void newOrder(String month, int day, int year) {
         orderID = generateOrderID();
         orderDate = new Date(month, day, year);
         orderLine = new ArrayList<OrderLine>();
@@ -46,9 +46,8 @@ public class Order {
      *
      * @return the random 5 digit integer
      */
-    public int generateOrderID() {
-        int randomID = (int) (Math.random() * 9999 + 10000);
-        return randomID;
+    private int generateOrderID() {
+        return (int) (Math.random() * 9999 + 10000);
     }
 
     /**
@@ -58,7 +57,7 @@ public class Order {
      * @param tool     is the specified Tool to be ordered
      * @param quantity is the specified quantity of Tool to be ordered
      */
-    public void addOrderLine(Tool tool, int quantity) {
+    void addOrderLine(Tool tool, int quantity) {
         orderLine.add(new OrderLine(tool, quantity));
     }
 

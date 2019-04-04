@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since February 6, 2019
  */
-public class Inventory {
+class Inventory {
     /**
      * List of Tools available in the inventory
      */
@@ -21,14 +21,14 @@ public class Inventory {
      *
      * @param toolList is the specified Tool list to be assigned
      */
-    public Inventory(ArrayList<Tool> toolList) {
+    Inventory(ArrayList<Tool> toolList) {
         this.toolList = toolList;
     }
 
     /**
      * Prints out a list of the Tools in the inventory.
      */
-    public String listTools() {
+    String listTools() {
         String toolListString = "";
         for (Tool t : toolList) {
             toolListString += t + "\n";
@@ -43,7 +43,7 @@ public class Inventory {
      * @param toolID      is the ID number of the Tool to have its quantity increased
      * @param amountAdded is the amount to increase the quantity by
      */
-    public String addTools(int toolID, int amountAdded) {
+    String addTools(int toolID, int amountAdded) {
         //use Tool method: increaseQuantity
         Tool t = searchInventory(toolID);
         if (t == null) {
@@ -72,7 +72,7 @@ public class Inventory {
      * @param amountRemoved is the amount to decrease the quantity by
      * @return the remaining quantity of the tool
      */
-    public String removeTools(int toolID, int amountRemoved) {
+    String removeTools(int toolID, int amountRemoved) {
         //use Tool method: decreaseQuantity
 
         int currentQuantity = checkToolQuantity(toolID);
@@ -105,7 +105,7 @@ public class Inventory {
      * @param price    is the new Tool price
      * @param supplier is the Supplier object that the Tool is associated with
      */
-    public void addNewTool(int toolID, String toolName, int quantity, double price, Supplier supplier) {
+    void addNewTool(int toolID, String toolName, int quantity, double price, Supplier supplier) {
         toolList.add(new Tool(toolID, toolName, quantity, price));
         toolList.get(toolList.size() - 1).assignSupplier(supplier);
     }
@@ -119,7 +119,7 @@ public class Inventory {
      *
      * @param toolID is the ID number of the Tool to be deleted
      */
-    public String deleteTool(int toolID) {
+    String deleteTool(int toolID) {
         Tool t = searchInventory(toolID);
 
         if (t == null) {
@@ -137,7 +137,7 @@ public class Inventory {
      * @param toolName is the name of the Tool to be searched
      * @return the Tool object that was found or returns null if the Tool is not found
      */
-    public Tool searchInventory(String toolName) {
+    Tool searchInventory(String toolName) {
         //use Tool method: getToolName
         toolName = toolName.toLowerCase();
         for (Tool t : toolList) {
@@ -153,7 +153,7 @@ public class Inventory {
      * @param toolID is the ID number of the Tool to be searched
      * @return the Tool object that was found or returns null if the Tool is not found
      */
-    public Tool searchInventory(int toolID) {
+    Tool searchInventory(int toolID) {
         //use Tool method: getToolID
         for (Tool t : toolList) {
             if (t.getToolID() == toolID)
@@ -169,7 +169,7 @@ public class Inventory {
      * @return the quantity of the Tool in the inventory or returns 0 if the tool ID number
      * does not belong to a Tool in the inventory
      */
-    public int checkToolQuantity(int toolID) {
+    int checkToolQuantity(int toolID) {
 
         Tool t = searchInventory(toolID);
         if (t == null)

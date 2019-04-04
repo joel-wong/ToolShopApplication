@@ -17,7 +17,7 @@ public class LoginListener  implements ActionListener{
 	private LoginFrame loginView;
 	private ClientController clientController;
 	
-	public LoginListener(LoginFrame loginView, ClientController clientController) {
+	LoginListener(LoginFrame loginView, ClientController clientController) {
 		this.loginView = loginView;
 		this.clientController = clientController;
 		loginView.addListener(this);

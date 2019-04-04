@@ -39,13 +39,12 @@ public class LoginFrame  extends JFrame{
 		return loginIcon;
 	}
 	
-	public void createIcons() {
+	private void createIcons() {
 		
 		loginIcon = new ImageIcon("loginIcon.png");
 	}
-	
-	
-	public void addLoginPanel() {
+
+	private void addLoginPanel() {
 		JPanel loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(169, 231, 252));
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));

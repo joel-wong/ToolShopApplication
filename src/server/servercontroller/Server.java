@@ -11,7 +11,7 @@ public class Server {
     /**
      * ServerSocket object for the Server
      */
-    ServerSocket serverSocket;
+    private ServerSocket serverSocket;
     /**
      * Thread Pool to Handle Communication.
      */
@@ -27,14 +27,10 @@ public class Server {
      */
     private ShopInterface shopInterfaceInstance;
 
-    public Server(){
-
-    }
-
     /**
      * Construct a Server on localhost:8000 and a create fixed thread pool.
      */
-    public void connectToClients(){
+    private void connectToClients(){
         try {
             serverSocket = new ServerSocket(51151);
 
@@ -64,7 +60,7 @@ public class Server {
     /**
      * Runs a thread for every client that connects with the server.
      */
-    public void runToolShopServer() {
+    private void runToolShopServer() {
         try {
 
             while (true) {
@@ -81,7 +77,7 @@ public class Server {
         }
     }
 
-    public void closeStreams(){
+    private void closeStreams(){
         try {
             serverSocket.close();
             pool.shutdown();
@@ -92,15 +88,15 @@ public class Server {
         }
     }
 
-    public void setupShop(){
+    private void setupShop(){
         shopApplicationInstance = new ShopApplication();
     }
 
-    public void setupShopInterface(){
+    private void setupShopInterface(){
         shopInterfaceInstance = new ShopInterface(shopApplicationInstance);
     }
 
-    public void setupAndRun() {
+    private void setupAndRun() {
         // create server to connect to clients
         setupShop();
         setupShopInterface();

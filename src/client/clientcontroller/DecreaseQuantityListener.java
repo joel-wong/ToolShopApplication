@@ -12,7 +12,7 @@ import client.clientview.MyFrame;
 
 public class DecreaseQuantityListener extends ListenerController {
 
-	public DecreaseQuantityListener(MyFrame view, ClientController clientController) {
+	DecreaseQuantityListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
