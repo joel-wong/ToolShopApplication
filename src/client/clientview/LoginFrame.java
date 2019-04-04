@@ -10,15 +10,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import client.clientcontroller.LoginListener;
 
-
+/**
+ * This class provides data fields and methods to create the login GUI for a Tool Shop Application.
+ * 
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ *
+ */
 public class LoginFrame  extends JFrame{
 	
-	
+	/**
+	 * Button to login
+	 */
 	private JButton login;
 
+	/**
+	 * Login icon
+	 */
 	private ImageIcon loginIcon;
 	
-	
+	/**
+	 * Contructs a LoginFrame object and creates the Icon and adds the login button panel.
+	 * @param s
+	 */
 	public LoginFrame(String s) {
 		super(s);
 		setLayout(new BorderLayout());
@@ -26,25 +41,36 @@ public class LoginFrame  extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Tool Shop Application");
 		createIcons();
-		addLoginPanel();
-		    
+		addLoginPanel();	    
 	}
 	
-	
+	/**
+	 * Adds the ActionListener to the login button. 
+	 * @param l is the LoginListener
+	 */
 	public void addListener(LoginListener l) {
 		login.addActionListener(l);
 	}
 	
+	/**
+	 * Returns the loginIcon.
+	 * @return the loginIcon
+	 */
 	public ImageIcon getLoginIcon() {
 		return loginIcon;
 	}
 	
+	
+	/**
+	 * Creates the icons.
+	 */
 	public void createIcons() {
-		
 		loginIcon = new ImageIcon("loginIcon.png");
 	}
 	
-	
+	/**
+	 * Creates and adds the login button to the frame.
+	 */
 	public void addLoginPanel() {
 		JPanel loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(169, 231, 252));

@@ -12,14 +12,29 @@ import javax.swing.ScrollPaneConstants;
 
 import client.clientview.MyFrame;
 
+/**
+ * This class is the ActionListener for the List Orders button in a Tool Shop application.
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ */
 public class ListOrdersListener extends ListenerController {
 
+	/**
+	 * Constructs an ListOrdersListener object and assigns the specified frame and client controller. 
+	 * Adds the listener to the frame.
+	 * @param view is the specified frame
+	 * @param clientController is the specified client controller
+	 */
 	public ListOrdersListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
 
 	@Override
+	/**
+	 * Displays a list of orders.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String s = clientController.listOrders();
 		

@@ -10,14 +10,29 @@ import javax.swing.JTextField;
 
 import client.clientview.MyFrame;
 
+/**
+ * This class is the ActionListener for the Set Date button in a Tool Shop application.
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ */
 public class SetDateListener extends ListenerController {
 
+	/**
+	 * Constructs an SetDateListener object and assigns the specified frame and client controller. 
+	 * Adds the listener to the frame.
+	 * @param view is the specified frame
+	 * @param clientController is the specified client controller
+	 */
 	public SetDateListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
 
 	@Override
+	/**
+	 * User is prompted to enter the Month, Day, Year and sets the date accordingly.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		JTextField monthField = new JTextField(5);
 	    JTextField dayField = new JTextField(5);
