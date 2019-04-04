@@ -67,6 +67,7 @@ public class LoginListener  implements ActionListener{
     	        DeleteToolListener deleteToolListener = new DeleteToolListener(newView, clientController);
     	        AddSupplierListener addSupplierListener = new AddSupplierListener(newView, clientController);
     	        SetDateListener setDateListener = new SetDateListener(newView, clientController);
+    	        ListOrdersListener listOrdersListener = new ListOrdersListener(newView, clientController);
     			
     		}
     		else {
