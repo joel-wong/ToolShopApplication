@@ -6,13 +6,28 @@ import javax.swing.JOptionPane;
 
 import client.clientview.MyFrame;
 
+/**
+ * This class is the ActionListener for the Search for Tool by ID button in a Tool Shop application.
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ */
 public class SearchIDListener extends ListenerController {
 
+	/**
+	 * Constructs an SearchIDListener object and assigns the specified frame and client controller. 
+	 * Adds the listener to the frame.
+	 * @param view is the specified frame
+	 * @param clientController is the specified client controller
+	 */
 	SearchIDListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
 
+	/**
+	 * User is prompted to enter a Tool ID number and the results of the search is displayed.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String toolID = (String) JOptionPane.showInputDialog(null, "Please enter the tool ID:", "Search for Tool", JOptionPane.OK_CANCEL_OPTION, view.getSearchIcon(), null, "");

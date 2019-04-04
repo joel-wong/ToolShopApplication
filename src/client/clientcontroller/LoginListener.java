@@ -13,16 +13,37 @@ import javax.swing.JTextField;
 import client.clientview.LoginFrame;
 import client.clientview.MyFrame;
 
-public class LoginListener  implements ActionListener{
+/**
+ * This class is the ActionListener for the login button in a Tool Shop application.
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ */
+public class LoginListener implements ActionListener{
+	/**
+	 * The GUI components for the login frame of the application.
+	 */
 	private LoginFrame loginView;
+	/**
+	 * The controller that makes requests to the server.
+	 */
 	private ClientController clientController;
 	
+	/**
+	 * Constructs an LoginListener object and assigns the specified login frame and client controller. 
+	 * Adds the listener to the login frame.
+	 * @param loginView is the specified login frame
+	 * @param clientController is the specified client controller
+	 */
 	LoginListener(LoginFrame loginView, ClientController clientController) {
 		this.loginView = loginView;
 		this.clientController = clientController;
 		loginView.addListener(this);
 	}
 
+	/**
+	 * User is prompted to enter a username and password and if correct the menu frame is created. 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JTextField userField = new JTextField(5);

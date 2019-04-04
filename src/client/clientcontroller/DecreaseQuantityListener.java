@@ -10,13 +10,28 @@ import javax.swing.JTextField;
 
 import client.clientview.MyFrame;
 
+/**
+ * This class is the ActionListener for the Decrease Tool Quantity button in a Tool Shop application.
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ */
 public class DecreaseQuantityListener extends ListenerController {
 
+	/**
+	 * Constructs an DecreaseQuantityListener object and assigns the specified frame and client controller. 
+	 * Adds the listener to the frame.
+	 * @param view is the specified frame
+	 * @param clientController is the specified client controller
+	 */
 	DecreaseQuantityListener(MyFrame view, ClientController clientController) {
 		super(view, clientController);
 		view.addListener(this);
 	}
 
+	/**
+	 * User is prompted to enter a Tool ID number and the amount to decrease the quantity by and the quantity of that tool is decreased accordingly.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JTextField idField = new JTextField(5);
@@ -44,10 +59,7 @@ public class DecreaseQuantityListener extends ListenerController {
 		    }
 	    }
 	    catch(NumberFormatException ne) {
-			JOptionPane.showMessageDialog(null,"Error. Did not enter a valid tool ID number or amount to remove", "Decrease Tool Quantity", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error. Did not enter a valid tool ID number or amount to remove", "Decrease Tool Quantity", JOptionPane.ERROR_MESSAGE);
 		}
-				
 	}
-		
-	
 }

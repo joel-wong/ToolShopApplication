@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import client.clientview.LoginFrame;
-import client.clientview.MyFrame;
 
 /**
  * Provides data fields and methods a create a client in a client-server
@@ -31,8 +30,13 @@ public class Client {
      */
     private BufferedReader socketIn;
 
+    /**
+     * The host name
+     */
     private String hostName;
-
+    /**
+     * The connection port number
+     */
     private int portNumber;
 
     /**
@@ -46,6 +50,9 @@ public class Client {
         this.portNumber = portNumber;
     }
 
+    /**
+     * Connects to the server using the host name and port number.
+     */
     private void connectToServer() {
         try {
             aSocket = new Socket(hostName, portNumber);
@@ -57,7 +64,6 @@ public class Client {
             socketOut = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
             System.out.println("Could not connect to server. Exiting...");
-            ;
             System.err.println(e.getStackTrace());
             System.exit(-1);
         }
@@ -69,13 +75,11 @@ public class Client {
      */
     String request(String stringToSendToServer) {
 
-
         // send input to server
         socketOut.println(stringToSendToServer + "\0");
         socketOut.flush();
 
         // read server output
-
         String response = "";
         String currentLine = "";
         try {
@@ -98,7 +102,7 @@ public class Client {
     }
 
     /**
-     * Main method that creates a Client and begins a game with the server.
+     * Main method that creates a Client runs the Tool Shop Application.
      *
      * @param args is unused
      */

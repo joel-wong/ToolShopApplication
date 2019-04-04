@@ -34,31 +34,105 @@ import client.clientcontroller.SearchIDListener;
 import client.clientcontroller.SearchNameListener;
 import client.clientcontroller.SetDateListener;
 
+/**
+ * This class provides data fields and methods to create the menu GUI for a Tool Shop Application.
+ * 
+ * @author Wenjia Yang
+ * @version 1.0
+ * @since April 4, 2019
+ *
+ */
 public class MyFrame extends JFrame{
+	/**
+	 * Button to display list of Tools
+	 */
 	private JButton listTools;
+	/**
+	 * Button to display list of Suppliers
+	 */
 	private JButton listSuppliers;
+	/**
+	 * Button to search for a Tool by name
+	 */
 	private JButton searchName;
+	/**
+	 * Button to search for a Tool by ID
+	 */
 	private JButton searchID;
+	/**
+	 * Button to check the quantity of a Tool
+	 */
 	private JButton checkQuantity;
+	/**
+	 * Button to decrease the quantity of a Tool
+	 */
 	private JButton decreaseQuantity;
+	/**
+	 * Button to increase the quantity of a Tool
+	 */
 	private JButton increaseQuantity;
+	/**
+	 * Button to delete a Tool
+	 */
 	private JButton deleteTool;
+	/**
+	 * Button to add a new Tool
+	 */
 	private JButton addNewTool;
+	/**
+	 * Button to add a new Supplier
+	 */
 	private JButton addNewSupplier;
+	/**
+	 * Button to set a new Date
+	 */
 	private JButton setNewDate;
+	/**
+	 * Button to display list of Orders
+	 */
 	private JButton listOrders;
-		
+	
+	/**
+	 * List icon
+	 */
 	private ImageIcon listIcon;
+	/**
+	 * Search icon
+	 */
 	private ImageIcon searchIcon;
+	/**
+	 * Check quantity icon
+	 */
 	private ImageIcon checkIcon;
+	/**
+	 * Decrease quantity icon
+	 */
 	private ImageIcon decreaseIcon;
+	/**
+	 * Increase quantity icon
+	 */
 	private ImageIcon increaseIcon;
+	/**
+	 * Delete tool icon
+	 */
 	private ImageIcon deleteIcon;
+	/**
+	 * Add tool ion
+	 */
 	private ImageIcon addToolIcon;
+	/**
+	 * Add supplier Icon
+	 */
 	private ImageIcon addSupplierIcon;
+	/**
+	 * Set Date Icon
+	 */
 	private ImageIcon setDateIcon;
 	
-	
+	/**
+	 * Constructs a MyFrame object and creates the Icons, adds the buttons, adds the Title.
+	 * @param s is the name of the frame
+	 */
 	public MyFrame(String s) {
 		super(s);
 		setLayout(new BorderLayout());
@@ -71,80 +145,169 @@ public class MyFrame extends JFrame{
 		pack();
 	}
 	
+	/**
+	 * Adds the ActionListener to the listTools button. 
+	 * @param l is the ListToolsListener
+	 */
 	public void addListener(ListToolsListener l) {
 		listTools.addActionListener(l);		
 	}
 	
+	/**
+	 * Adds the ActionListener to the listSuppliers button. 
+	 * @param l is the ListSuppliersListener
+	 */
 	public void addListener(ListSuppliersListener l) {
 		listSuppliers.addActionListener(l);		
 	}
 	
+	/**
+	 * Adds the ActionListener to the searchName button. 
+	 * @param l is the SearchNameListener
+	 */
 	public void addListener(SearchNameListener l) {
 		searchName.addActionListener(l);		
 	}
 	
+	/**
+	 * Adds the ActionListener to the searchID button. 
+	 * @param l is the SearchIDListener
+	 */
 	public void addListener(SearchIDListener l) {
 		searchID.addActionListener(l);		
 	}
 	
+	/**
+	 * Adds the ActionListener to the checkQuantity button. 
+	 * @param l is the CheckQuantityListener
+	 */
 	public void addListener(CheckQuantityListener l) {
 		checkQuantity.addActionListener(l);		
 	}
 	
+	/**
+	 * Adds the ActionListener to the decreaseQuantity button. 
+	 * @param l is the DecreaseQuantityListener
+	 */
 	public void addListener(DecreaseQuantityListener l) {
 		decreaseQuantity.addActionListener(l);
 	}
 	
+	/**
+	 * Adds the ActionListener to the increaseQuantity button. 
+	 * @param l is the IncreaseQuantityListener
+	 */
 	public void addListener(IncreaseQuantityListener l) {
 		increaseQuantity.addActionListener(l);
 	}
+	
+	/**
+	 * Adds the ActionListener to the addNewTool button. 
+	 * @param l is the AddToolListener
+	 */
 	public void addListener(AddToolListener l) {
 		addNewTool.addActionListener(l);
 	}
+	
+	/**
+	 * Adds the ActionListener to the deleteTool button. 
+	 * @param l is the DeleteToolListener
+	 */
 	public void addListener(DeleteToolListener l) {
 		deleteTool.addActionListener(l);
 	}
+	
+	/**
+	 * Adds the ActionListener to the addNewSupplier button. 
+	 * @param l is the AddSupplierListener
+	 */
 	public void addListener(AddSupplierListener l) {
 		addNewSupplier.addActionListener(l);
 	}
+	
+	/**
+	 * Adds the ActionListener to the setNewDate button. 
+	 * @param l is the SetDateListener
+	 */
 	public void addListener(SetDateListener l) {
 		setNewDate.addActionListener(l);
 	}
+	
+	/**
+	 * Adds the ActionListener to the listOrders button. 
+	 * @param l is the ListOrdersListener
+	 */
 	public void addListener(ListOrdersListener l) {
 		listOrders.addActionListener(l);
 	}
 	
-	
+	/**
+	 * Returns the listIcon.
+	 * @return the listIcon
+	 */
 	public ImageIcon getListIcon() {
 		return listIcon;
 	}
-	
+	/**
+	 * Returns the searchIcon.
+	 * @return the searchIcon
+	 */
 	public ImageIcon getSearchIcon() {
 		return searchIcon;
 	}
+	/**
+	 * Returns the checkIcon.
+	 * @return the checkIcon
+	 */
 	public ImageIcon getCheckIcon() {
 		return checkIcon;
 	}
+	/**
+	 * Returns the decreaseIcon.
+	 * @return the decreaseIcon
+	 */
 	public ImageIcon getDecreaseIcon() {
 		return decreaseIcon;
 	}
+	/**
+	 * Returns the increaseIcon.
+	 * @return the increaseIcon
+	 */
 	public ImageIcon getIncreaseIcon() {
 		return increaseIcon;
 	}
+	/**
+	 * Returns the deleteIcon.
+	 * @return the deleteIcon
+	 */
 	public ImageIcon getDeleteIcon() {
 		return deleteIcon;
 	}
+	/**
+	 * Returns the addToolIcon.
+	 * @return the addToolIcon
+	 */
 	public ImageIcon getAddToolIcon() {
 		return addToolIcon;
 	}
+	/**
+	 * Returns the addSupplierIcon.
+	 * @return the addSupplierIcon
+	 */
 	public ImageIcon getAddSupplierIcon() {
 		return addSupplierIcon;
 	}
+	/**
+	 * Returns the setDateIcon.
+	 * @return the setDateIcon
+	 */
 	public ImageIcon getSetDateIcon() {
 		return setDateIcon;
 	}
-	
-	
+
+	/**
+	 * Creates the icons.
+	 */
 	private void createIcons() {
 		listIcon = new ImageIcon("listIcon.png");
 		searchIcon = new ImageIcon("searchIcon.png");
@@ -156,8 +319,11 @@ public class MyFrame extends JFrame{
 		addSupplierIcon = new ImageIcon("addSupplierIcon.png");
 		setDateIcon = new ImageIcon("setDateIcon.png");
 	}
-	
-	
+
+
+	/**
+	 * Creates and adds the buttons to the frame.
+	 */
 	private void addButtonPanel() {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -209,8 +375,10 @@ public class MyFrame extends JFrame{
 		
 		getContentPane().add("Center", buttonPanel);
 	}
-	
-	
+
+	/**
+	 * Creates and adds the title panel to the frame.
+	 */
 	private void addTitlePanel() {
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -224,10 +392,12 @@ public class MyFrame extends JFrame{
 	}
 	
 
-	
+	/**
+	 * Activates the Automatic Logout feature for the frame. 
+	 * @param loginFrame is the Login Frame for the shop Application
+	 */
 	public void setAutomaticLogout(LoginFrame loginFrame) {
 		Action logout = new AbstractAction(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame = (JFrame)e.getSource();
