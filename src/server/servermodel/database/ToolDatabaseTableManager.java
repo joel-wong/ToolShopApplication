@@ -13,7 +13,7 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
     public ResultSet getAllTools() {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM tooltable");
+                    "SELECT * FROM tooltable ORDER BY tool_id ASC");
             return readQuery(statement);
         }
         catch(SQLException e){
@@ -71,11 +71,11 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
         return null;
     }
 
-    public ResultSet searchToolbyName(int toolName) {
+    public ResultSet searchToolByName(String toolName) {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
                     "SELECT * FROM tooltable WHERE tool_name = ?");
-            statement.setInt(1, toolName);
+            statement.setString(1, toolName);
             return readQuery(statement);
         }
         catch(SQLException e){

@@ -13,7 +13,7 @@ public class SupplierDatabaseTableManager extends DatabaseTableManager {
     public ResultSet getAllSuppliers() {
         try {
             PreparedStatement statement = databaseConnectionManager.getConnection().prepareStatement(
-                    "SELECT * FROM suppliertable");
+                    "SELECT * FROM suppliertable ORDER_BY supplier_id");
             return readQuery(statement);
         }
         catch(SQLException e){

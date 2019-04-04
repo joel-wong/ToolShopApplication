@@ -46,6 +46,9 @@ public class SupplierManager {
     }
 
     String addSupplier(int supplierID, String companyName, String address, String salesContact) {
+        if (supplierID < 1) {
+            return "The supplier ID must be positive.\n";
+        }
         ResultSet resultSet = supplierDatabaseTableManager.searchSupplier(supplierID);
         try{
             if(resultSet.next()){

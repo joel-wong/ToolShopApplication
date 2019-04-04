@@ -1,51 +1,31 @@
 package server.servermodel;
 
+import server.servermodel.database.AccountDatabaseTableManager;
+import server.servermodel.database.DatabaseConnectionManager;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 class Authenticator {
 
-    static String authenticate(String username, String password) {
+    private AccountDatabaseTableManager accountDatabaseTableManager;
 
-        int NUM_USERS = 5;
-        String[] usernameTable = new String[NUM_USERS];
-        usernameTable[0] = "admin";
-        usernameTable[1] = "joel";
-        usernameTable[2] = "wendy";
-        usernameTable[3] = "anik";
-        usernameTable[4] = "mohammad";
+    Authenticator(DatabaseConnectionManager databaseConnectionManager){
+        this.accountDatabaseTableManager = new AccountDatabaseTableManager(databaseConnectionManager);
+    }
 
-        String[] passwordsTable = new String[NUM_USERS];
-        passwordsTable[0] = "admin";
-        passwordsTable[1] = "secure";
-        passwordsTable[2] = "name";
-        passwordsTable[3] = "write";
-        passwordsTable[4] = "get";
-
-        /* Current username/password combos:
-        username: admin
-        password: admin
-
-        username: joel
-        password: secure
-
-        username: wendy
-        password: name
-
-        username: anik
-        password: write
-
-        username: mohammad
-        password: get
-
-        */
-
-        for (int i = 0; i < NUM_USERS; i++) {
-            if (usernameTable[i].equals(username)) {
-                if(passwordsTable[i].equals(password)) {
-                    return "true";
-                }
+    String authenticate(String username, String password) {
+        ResultSet account = accountDatabaseTableManager.authenticate(username, password);
+        try{
+            if(account.next()){
+                return "true";
+            }
+            else {
                 return "false";
             }
         }
-        return "false";
-
+        catch(SQLException e) {
+            return "Error in SQL. Please contact the developers for more details";
+        }
     }
 }

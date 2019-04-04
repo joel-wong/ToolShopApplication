@@ -46,7 +46,7 @@ public class ShopApplication implements Constants {
     private SupplierManager supplierManager;
     private OrderManager orderManager;
     private ToolManager toolManager;
-//    private ToolManager toolManager; Will be added later
+    private Authenticator authenticator;
 
 
     /**
@@ -77,7 +77,7 @@ public class ShopApplication implements Constants {
         this.supplierManager = new SupplierManager(databaseConnectionManager);
         this.orderManager = new OrderManager(databaseConnectionManager);
         this.toolManager = new ToolManager(databaseConnectionManager);
-//        this.toolManager = new ToolManager(databaseConnectionManager);
+        this.authenticator = new Authenticator(databaseConnectionManager);
 
         generateNewOrder();
 
@@ -236,7 +236,7 @@ public class ShopApplication implements Constants {
      * Prints a lists of all the Tools in the inventory of the Shop Application.
      */
     String listTools() {
-        return inventory.listTools();
+        return toolManager.listTools();
     }
 
     //2.
@@ -256,16 +256,7 @@ public class ShopApplication implements Constants {
      */
     String searchInventoryByName(String toolName) {
         //use Inventory method searchInventory
-
-        Tool t = inventory.searchInventory(toolName);
-        if (t == null)
-            return "Sorry, Tool was not found.";
-        else {
-            String response = "Tool found:\n\n";
-            response += t;
-            return response;
-        }
-
+        return toolManager.searchToolByName(toolName);
     }
 
     //4.
@@ -275,15 +266,7 @@ public class ShopApplication implements Constants {
      * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
      */
     String searchInventoryByID(int toolID) {
-        Tool t = null;
-        t = inventory.searchInventory(toolID);
-        if (t == null)
-            return "Sorry, Tool was not found.\n";
-        else {
-            String response = "Tool found: \n";
-            response += t;
-            return response;
-        }
+        return toolManager.searchToolByID(toolID);
     }
 
     //5.
@@ -293,13 +276,7 @@ public class ShopApplication implements Constants {
      * If the Tool ID does not corrospond to a Tool in the inventory the returned String indicates that.
      */
     String checkToolQuantity(int toolID) {
-        Tool t = null;
-        t = inventory.searchInventory(toolID);
-        if (t == null)
-            return "Sorry, Tool was not found.\n";
-        else {
-            return "Quantity: " + inventory.checkToolQuantity(toolID);
-        }
+        return toolManager.getToolQuantity(toolID);
     }
 
     //6.
@@ -381,18 +358,7 @@ public class ShopApplication implements Constants {
     String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
         //use supplierID to go through supplierList and find the Supplier object
         //call the Inventory method addNewTool
-        Supplier s = searchSupplier(supplierID);
-        if (s == null) {
-            return "Supplier ID not recognized.\n";
-        }
-        inventory.addNewTool(toolID, toolName, quantity, price, s);
-        String response = "Successfully added new tool to inventory:\n";
-        Tool t = inventory.searchInventory(toolID);
-        response += t;
-        if (quantity < itemQuantityMinimum) {
-            generateDefaultOrderline(t, quantity);
-        }
-        return response;
+        return toolManager.addTool(toolID, toolName, quantity, price, false, supplierID);
     }
 
 
@@ -404,18 +370,14 @@ public class ShopApplication implements Constants {
      */
     String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
         //use Supplier constructor
-
-        supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
-        String response = "Successfully added new supplier to List of Suppliers:\n";
-        response += supplierList.get(supplierList.size() - 1);
-        return response;
+        return supplierManager.addSupplier(supplierID, companyName, address, salesContact);
 
     }
 
     // 12.
     // Checks if a given username/password (hased with SHA512) is valid
     String checkLogin(String username, String hashedPassword) {
-        return Authenticator.authenticate(username, hashedPassword);
+        return authenticator.authenticate(username, hashedPassword);
     }
 
 }
