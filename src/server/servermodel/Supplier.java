@@ -57,10 +57,10 @@ public class Supplier {
     public String toString() {
         String s =
                 "Supplier ID: " + supplierID +
-                        "\nCompany Name: " + companyName +
-                        "\nAddress: " + address +
-                        "\nSales Contact: " + salesContact +
-                        "\nTools Supplied: ";
+                "\nCompany Name: " + companyName +
+                "\nAddress: " + address +
+                "\nSales Contact: " + salesContact +
+                "\nTools Supplied: ";
         //Listing out the tools supplied
         for (Tool t : tools) {
             s += "-" + t.getToolName() + " ";

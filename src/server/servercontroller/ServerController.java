@@ -6,7 +6,7 @@ import java.net.SocketException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import server.servermodel.ShopInterface;
+import server.servermodel.ShopManager;
 
 public class ServerController implements Runnable {
 
@@ -26,7 +26,7 @@ public class ServerController implements Runnable {
     /**
      * Used to retrieve data from the model
      */
-    private ShopInterface shopInterfaceInstance;
+    private ShopManager shopManagerInstance;
 
     /**
      * Constructs a Player object with the specified socket and mark. Creates the streams for
@@ -34,9 +34,9 @@ public class ServerController implements Runnable {
      * @param s is the socket
      * @param mark is the mark that the Player object will play with
      */
-    ServerController(Socket clientSocket, ShopInterface shopInterfaceInstance) {
+    ServerController(Socket clientSocket, ShopManager shopManagerInstance) {
         this.clientSocket = clientSocket;
-        this.shopInterfaceInstance = shopInterfaceInstance;
+        this.shopManagerInstance = shopManagerInstance;
     }
 
     /**
@@ -73,7 +73,7 @@ public class ServerController implements Runnable {
                     }
                     input += currentLine + "\n";
                 }
-                response = shopInterfaceInstance.serviceRequest(input);
+                response = shopManagerInstance.serviceRequest(input);
                 out.println(response + "\0");
             }
         }

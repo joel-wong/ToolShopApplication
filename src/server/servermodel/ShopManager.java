@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since February 6, 2019
  */
-public class ShopInterface {
+public class ShopManager {
 
     /**
      * Makes function calls to the shopApplicationInstance based on input
@@ -24,7 +24,7 @@ public class ShopInterface {
      *
      * @param shopApplicationInstance The shop application
      */
-    public ShopInterface(ShopApplication shopApplicationInstance){
+    public ShopManager(ShopApplication shopApplicationInstance){
         this.shopApplicationInstance = shopApplicationInstance;
     }
 

@@ -1,10 +1,16 @@
 package server.servermodel;
 
+import server.servermodel.database.DatabaseConnectionManager;
+import server.servermodel.database.SupplierDatabaseTableManager;
+
+import javax.xml.transform.Result;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -37,14 +43,16 @@ public class ShopApplication implements Constants {
      */
     private Date date;
 
+    private SupplierManager supplierManager;
+    private OrderManager orderManager;
+    private ToolManager toolManager;
+//    private ToolManager toolManager; Will be added later
+
+
     /**
      * Constructs a ShopApplication object assigned with the specified inventory, supplier list, order, and date.
      * Generates a new order for the day.
      *
-     * @param inventory    is the ShopApplication's inventory
-     * @param supplierList is the ShopApplication's supplier list
-     * @param order        is the ShopApplication's order
-     * @param date         is the ShopApplication's date
      */
     public ShopApplication() {
         setupShop();
@@ -64,6 +72,12 @@ public class ShopApplication implements Constants {
         this.supplierList = supplierList;
         this.order = order;
         this.date = currentDate;
+
+        DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
+        this.supplierManager = new SupplierManager(databaseConnectionManager);
+        this.orderManager = new OrderManager(databaseConnectionManager);
+        this.toolManager = new ToolManager(databaseConnectionManager);
+//        this.toolManager = new ToolManager(databaseConnectionManager);
 
         generateNewOrder();
 
@@ -93,7 +107,7 @@ public class ShopApplication implements Constants {
         String toolName;
         int quantity;
         double price;
-        int supplierID;
+    int supplierID;
 
         while (sc.hasNextInt()) {
             toolID = sc.nextInt();
@@ -106,6 +120,7 @@ public class ShopApplication implements Constants {
             }
 
             inventory.addNewTool(toolID, toolName, quantity, price, searchSupplier(supplierID));
+
             if (quantity < itemQuantityMinimum) {
                 Tool t = inventory.searchInventory(toolID);
                 generateDefaultOrderline(t, quantity);
@@ -137,7 +152,6 @@ public class ShopApplication implements Constants {
             if(sc.hasNextLine()) {
                 sc.nextLine();
             }
-
             supplierList.add(new Supplier(supplierID, companyName, address, salesContact));
         }
     }
@@ -231,11 +245,7 @@ public class ShopApplication implements Constants {
      * Prints a list of all the Suppliers in the Supplier list of the Shop Application.
      */
     String listSuppliers() {
-        String supplierListString = "";
-        for (Supplier s : supplierList) {
-            supplierListString += s + "\n\n";
-        }
-        return supplierListString;
+        return supplierManager.listSuppliers();
     }
 
     //3.
@@ -408,5 +418,4 @@ public class ShopApplication implements Constants {
         return Authenticator.authenticate(username, hashedPassword);
     }
 
-    // 13.
 }
