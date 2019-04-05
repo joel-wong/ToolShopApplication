@@ -32,7 +32,7 @@ public class LoginFrame  extends JFrame{
 	
 	/**
 	 * Contructs a LoginFrame object and creates the Icon and adds the login button panel.
-	 * @param s
+	 * @param s Name of the frame
 	 */
 	public LoginFrame(String s) {
 		super(s);

@@ -66,7 +66,7 @@ public class LoginListener implements ActionListener{
 	    	String user = userField.getText();
 	    	String pass = passField.getText();
 	    	boolean successfulLogin = clientController.login(user, pass);
-    		String response = "";
+    		String response;
     		if(successfulLogin) {
     			response = "Successfully logged in.";
     			JOptionPane.showMessageDialog(null, response, "Login", JOptionPane.INFORMATION_MESSAGE, loginView.getLoginIcon());

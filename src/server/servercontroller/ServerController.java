@@ -31,8 +31,8 @@ public class ServerController implements Runnable {
     /**
      * Constructs a Player object with the specified socket and mark. Creates the streams for
      * the Player to read and write from.
-     * @param s is the socket
-     * @param mark is the mark that the Player object will play with
+     * @param clientSocket is the socket
+     * @param shopManagerInstance Used to interface with the shop
      */
     ServerController(Socket clientSocket, ShopManager shopManagerInstance) {
         this.clientSocket = clientSocket;

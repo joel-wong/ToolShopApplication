@@ -7,7 +7,7 @@ import server.servermodel.database.ToolDatabaseTableManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SupplierManager {
+class SupplierManager {
 
     private SupplierDatabaseTableManager supplierDatabaseTableManager;
 

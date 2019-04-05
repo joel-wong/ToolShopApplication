@@ -24,10 +24,10 @@ public class SearchNameListener extends ListenerController {
 		view.addListener(this);
 	}
 
-	@Override
 	/**
 	 * User is prompted to enter a Tool Name and the results of the search is displayed.
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String toolName = (String) JOptionPane.showInputDialog(null, "Please enter the tool name:", "Search for Tool", JOptionPane.OK_CANCEL_OPTION, view.getSearchIcon(), null, "");
 		

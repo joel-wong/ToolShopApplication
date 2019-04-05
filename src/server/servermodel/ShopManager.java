@@ -18,7 +18,7 @@ public class ShopManager {
     /**
      * Makes function calls to the shopApplicationInstance based on input
      */
-    ShopApplication shopApplicationInstance;
+    private ShopApplication shopApplicationInstance;
 
     /**
      *

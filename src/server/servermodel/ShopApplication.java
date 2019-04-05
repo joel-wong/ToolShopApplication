@@ -1,19 +1,6 @@
 package server.servermodel;
 
 import server.servermodel.database.DatabaseConnectionManager;
-import server.servermodel.database.SupplierDatabaseTableManager;
-
-import javax.xml.transform.Result;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.Calendar;
 import java.text.Format;
 import java.text.SimpleDateFormat;

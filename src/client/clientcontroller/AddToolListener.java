@@ -29,10 +29,10 @@ public class AddToolListener extends ListenerController {
 		view.addListener(this);
 	}
 
-	@Override
 	/**
 	 * User is prompted to enter new tool information and a new tool is created.
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		JTextField idField = new JTextField(5);
 	    JTextField nameField = new JTextField(5);

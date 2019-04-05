@@ -5,7 +5,7 @@ import server.servermodel.database.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ToolManager implements Constants {
+class ToolManager implements Constants {
 
     private SupplierDatabaseTableManager supplierDatabaseTableManager;
 

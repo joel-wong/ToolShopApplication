@@ -25,10 +25,10 @@ public class DeleteToolListener extends ListenerController {
 		view.addListener(this);
 	}
 
-	@Override
 	/**
 	 * User is prompted to enter a Tool ID number and then deletes the specified Tool.
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String toolID = (String) JOptionPane.showInputDialog(null, "Please enter the tool ID:", "Delete Tool", JOptionPane.OK_CANCEL_OPTION, view.getDeleteIcon(), null, "");
 		try {	
