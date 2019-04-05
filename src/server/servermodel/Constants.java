@@ -1,7 +1,7 @@
 package server.servermodel;
 
 /**
- * Interface for a Tool Shop Application.
+ * Interface for a Tool Shop Application with constants
  * 
  * @author Wenjia Yang and Joel Wong
  * @version 1.1
