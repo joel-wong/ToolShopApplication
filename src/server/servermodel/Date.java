@@ -4,9 +4,9 @@ package server.servermodel;
  * Provides data fields and methods to create a Java data-type, representing a Date
  * in the Tool Shop application.
  *
- * @author Wenjia Yang
- * @version 1.0
- * @since February 6, 2019
+ * @author Wenjia Yang and Joel Wong
+ * @version 1.1
+ * @since April 5, 2019
  */
 public class Date {
     /**

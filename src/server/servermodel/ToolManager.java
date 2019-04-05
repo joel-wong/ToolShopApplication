@@ -5,18 +5,40 @@ import server.servermodel.database.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class to manage a Tool inventory in a Tool Shop application.
+ * @author Wenjia Yang and Joel Wong
+ * @version 1.0
+ * @since April 5, 2019
+ */
 class ToolManager implements Constants {
 
+	/**
+	 * Supplier Database Table Manager
+	 */
     private SupplierDatabaseTableManager supplierDatabaseTableManager;
-
+    /**
+     * Tool Database Table Manager
+     */
     private ToolDatabaseTableManager toolDatabaseTableManager;
-
+    /**
+     * Orderline Database Table Manager
+     */
     private OrderlineDatabaseTableManager orderlineDatabaseTableManager;
-
+    /**
+     * Order Database Table Manager
+     */
     private OrderDatabaseTableManager orderDatabaseTableManager;
-
+    /**
+     * Date of the application
+     */
     private Date date;
 
+    /**
+     * Constructs a ToolManager object with the specified DatabaseConnectionManager and Date.
+     * @param databaseConnectionManager is the specified DatabaseConnectionManager
+     * @param date is the specified Date
+     */
     ToolManager(DatabaseConnectionManager databaseConnectionManager, Date date){
         this.supplierDatabaseTableManager = new SupplierDatabaseTableManager(databaseConnectionManager);
         this.toolDatabaseTableManager = new ToolDatabaseTableManager(databaseConnectionManager);
@@ -25,6 +47,10 @@ class ToolManager implements Constants {
         this.date = date;
     }
 
+    /**
+     * Returns a list of the Tools and corresponding Tool details in the shop inventory in String form.
+     * @return the list of Tools
+     */
     String listTools(){
         String toolListString = "";
 
@@ -45,6 +71,16 @@ class ToolManager implements Constants {
         return toolListString;
     }
 
+    /**
+     * Adds a new Tool with the specified parameters to the shop inventory.
+     * @param toolID is the new Tool ID number
+     * @param toolName is the new Tool name
+     * @param quantityInStock is the new Tool quantity
+     * @param price is the new Tool price
+     * @param already_pending_order is true if the Tool already has a pending order
+     * @param supplierID is the new Tool's Supplier's ID number
+     * @return the request's resulting message
+     */
     String addTool(int toolID, String toolName, int quantityInStock, double price, boolean already_pending_order, int supplierID) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -68,6 +104,11 @@ class ToolManager implements Constants {
         }
     }
 
+    /**
+     * Searches the shop inventory for a Tool by Tool ID.
+     * @param toolID is the ID of the Tool to be searched
+     * @return the request's resulting message
+     */
     String searchToolByID(int toolID){
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -76,11 +117,21 @@ class ToolManager implements Constants {
         return getToolDetailsAsString(toolReturned);
     }
 
+    /**
+     * Searches the shop inventory for a Tool by Tool name.
+     * @param toolName is the name of the Tool to be searched
+     * @return the request's resulting message
+     */
     String searchToolByName(String toolName) {
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByName(toolName);
         return getToolDetailsAsString(toolReturned);
     }
 
+    /**
+     * Checks the quantity of the specified Tool.
+     * @param toolID is the ID number of the specified Tool
+     * @return the request's resulting message
+     */
     String getToolQuantity(int toolID) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -99,6 +150,11 @@ class ToolManager implements Constants {
         }
     }
 
+    /**
+     * Deletes a specified Tool from the shop inventory.
+     * @param toolID is the ID number of the specified Tool
+     * @return the request's resulting message
+     */
     String deleteTool(int toolID) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -122,6 +178,12 @@ class ToolManager implements Constants {
         }
     }
 
+    /**
+     * Increases the quantity of a specified Tool in the shop inventory by the specified amount.
+     * @param toolID is the ID number of the specified Tool
+     * @param amountAdded is the specified amount to be added
+     * @return the request's resulting message
+     */
     String increaseToolQuantity(int toolID, int amountAdded) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -146,6 +208,12 @@ class ToolManager implements Constants {
         }
     }
 
+    /**
+     * Decreases the quantity of a specified Tool in the shop inventory by the specified amount.
+     * @param toolID is the ID number of the specified Tool
+     * @param amountRemoved is the specified amount to be removed
+     * @return the request's resulting message
+     */
     String decreaseToolQuantity(int toolID, int amountRemoved) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
@@ -195,6 +263,11 @@ class ToolManager implements Constants {
         }
     }
 
+    /**
+     * Converts the Tool details to String format from the result of a Database query.
+     * @param toolReturned is the result of the Database query
+     * @return the String format of the Tool details
+     */
     private String getToolDetailsAsString(ResultSet toolReturned) {
         try{
             if(toolReturned.next()){

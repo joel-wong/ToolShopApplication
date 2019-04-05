@@ -3,12 +3,11 @@ package server.servermodel;
 /**
  * Interface for a Tool Shop Application.
  * 
- * @author Wenjia Yang
- * @version 1.0
- * @since February 6, 2019
+ * @author Wenjia Yang and Joel Wong
+ * @version 1.1
+ * @since April 5, 2019
  *
  */
-
 public interface Constants {
 	/**
 	 * The threshold for the number of items in the inventory before
