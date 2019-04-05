@@ -8,29 +8,36 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import server.servermodel.ShopManager;
 
+/** Interfaces with a client through a socket.
+ * Receives an existing connection from the Server class and communicates with the client on that socket.
+ *
+ *  @author Joel Wong
+ *  @version 1.0
+ *  @since April 4, 2019
+ */
 public class ServerController implements Runnable {
 
     /**
-     * Socket for the player to read and write to to communicate with the server
+     * Socket for the client to read and write to to communicate with the ShopManager
 	 */
     private Socket clientSocket;
     /**
-     * Stream for the player to write to the socket
+     * Stream for the server to write to the socket
      */
     private PrintWriter out;
     /**
      * Stream to read from the socket
      */
     private BufferedReader in;
-
     /**
      * Used to retrieve data from the model
      */
     private ShopManager shopManagerInstance;
 
     /**
-     * Constructs a Player object with the specified socket and mark. Creates the streams for
-     * the Player to read and write from.
+     * Constructs a Server object with the specified socket.
+     * Receives an existing connection from the Server class and communicates with the client on that socket.
+     * Creates the streams for this object to read and write from.
      * @param clientSocket is the socket
      * @param shopManagerInstance Used to interface with the shop
      */
@@ -39,9 +46,9 @@ public class ServerController implements Runnable {
         this.shopManagerInstance = shopManagerInstance;
     }
 
-    /**
+    /** Sets up I/O streams to communicate with the client.
      *
-     * @return true is the Thread has been able to connect to the client
+     * @return true if the Thread has been able to connect to the client
      */
     private boolean connectToClient(){
         try {
@@ -55,6 +62,9 @@ public class ServerController implements Runnable {
         return true;
     }
 
+    /** Receives user input, parses input into one string, and makes a call to the ShopManager to parse the input,
+     * then outputs the ShopManager output
+     */
     private void serviceClient(){
         String input = "";
         String response = "";
@@ -87,6 +97,9 @@ public class ServerController implements Runnable {
         }
     }
 
+    /**
+     * Closes the input and output streams used to communicate with the client.
+     */
     private void closeStreams(){
         try {
             clientSocket.close();
@@ -99,6 +112,9 @@ public class ServerController implements Runnable {
         }
     }
 
+    /**
+     * Connects to the client, then continually services its requests
+     */
     public void run() {
         System.err.println("Connecting to a client...");
         if(connectToClient()){

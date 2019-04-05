@@ -6,6 +6,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import server.servermodel.*;
 
+/** Receives connection requests to the ToolShop application and creates a new thread for each requested connection.
+ * Up to 10 people may connect.
+ *
+ *  @author Joel Wong
+ *  @version 1.0
+ *  @since April 4, 2019
+ */
 public class Server {
 
     /**
@@ -16,19 +23,16 @@ public class Server {
      * Thread Pool to Handle Communication.
      */
     private ExecutorService pool;
-
     /**
-     * The instantiation of the shopApplication on the server. Loaded from the database on setup.
+     * The instantiation of the shopApplication on the server. Connects to the database on setup.
      */
     private ShopApplication shopApplicationInstance;
-
     /**
      * The instantiation of the shopManager on the server, used to decode message and call the appropriate ShopApplication functions
      */
     private ShopManager shopManagerInstance;
-
     /**
-     * Construct a Server on localhost:8000 and a create fixed thread pool.
+     * Construct a Server on localhost:51151 and a create fixed thread pool.
      */
     private void connectToClients(){
         try {
@@ -77,6 +81,9 @@ public class Server {
         }
     }
 
+    /**
+     * Closes all input and output streams
+     */
     private void closeStreams(){
         try {
             serverSocket.close();
@@ -88,16 +95,25 @@ public class Server {
         }
     }
 
+    /**
+     * Creates the Shop Application instance that will handle all information requests from the client.
+     * Connects to the database.
+     */
     private void setupShop(){
         shopApplicationInstance = new ShopApplication();
     }
 
+    /**
+     * Creates the object that will be used as the "interface" to the backend
+     */
     private void setupShopManager(){
         shopManagerInstance = new ShopManager(shopApplicationInstance);
     }
 
+    /**
+     * Create server and connect to clients
+     */
     private void setupAndRun() {
-        // create server to connect to clients
         setupShop();
         setupShopManager();
         connectToClients();
@@ -105,6 +121,10 @@ public class Server {
         closeStreams();
     }
 
+    /** Creates and runs the server.
+     *
+     * @param args Ignored
+     */
     public static void main(String[] args) {
         Server serverInstance = new Server();
         serverInstance.setupAndRun();
