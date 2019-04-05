@@ -6,11 +6,11 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 /**
- * Provides data fields and methods to create a Tool Shop application with a console based menu.
+ * Provides data fields and methods to create a Tool Shop application.
  *
- * @author Wenjia Yang
- * @version 1.0
- * @since February 6, 2019
+ * @author Wenjia Yang and Joel Wong
+ * @version 1.1
+ * @since April 5, 2019
  */
 public class ShopApplication implements Constants {
     /**
@@ -18,21 +18,35 @@ public class ShopApplication implements Constants {
      */
     private Date date;
 
+    /**
+     * Supplier manager
+     */
     private SupplierManager supplierManager;
+    /**
+     * Order manager
+     */
     private OrderManager orderManager;
+    /**
+     * Tool manager
+     */
     private ToolManager toolManager;
+    /**
+     * Password manager
+     */
     private Authenticator authenticator;
 
 
     /**
-     * Constructs a ShopApplication object assigned with the specified inventory, supplier list, order, and date.
-     * Generates a new order for the day.
+     * Constructs a ShopApplication object and sets it up.
      *
      */
     public ShopApplication() {
         setupShop();
     }
 
+    /**
+     * Sets up the shop with the current date and creates the supplier manager, order manager, tool manager and authenticator.
+     */
     private void setupShop(){
         Calendar javaDate = Calendar.getInstance();
         Format formatter = new SimpleDateFormat("MMMM");
@@ -47,27 +61,30 @@ public class ShopApplication implements Constants {
     }
 
     //0.
-
+    
     /**
-     * Print a list of all orders and their order items
+     * Gets the list of Orders.
+     * @return the list of orders.
      */
     String listOrders() {
         return orderManager.listOrders();
     }
 
     //1.
-
+    
     /**
-     * Prints a lists of all the Tools in the inventory of the Shop Application.
+     * Gets the list of Tools.
+     * @return the list of Tools
      */
     String listTools() {
         return toolManager.listTools();
     }
 
     //2.
-
+    
     /**
-     * Prints a list of all the Suppliers in the Supplier list of the Shop Application.
+     * Gets the list of Suppliers.
+     * @return the list of Suppliers
      */
     String listSuppliers() {
         return supplierManager.listSuppliers();
@@ -76,19 +93,20 @@ public class ShopApplication implements Constants {
     //3.
 
     /**
-     * Prompts the user to enter a Tool name and then searches the inventory using the Tool name.
-     * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
+     * Searches the shop inventory with the specified Tool name.
+     * @param toolName is the specified Tool name
+     * @return the result of the search
      */
     String searchInventoryByName(String toolName) {
-        //use Inventory method searchInventory
         return toolManager.searchToolByName(toolName);
     }
 
     //4.
 
     /**
-     * Prompts the user to enter a Tool ID and then searches the inventory using the Tool ID.
-     * If the Tool is found, method prints the Tool information, otherwise prints that the Tool was not found.
+     * Searches the shop inventory with the specified Tool ID.
+     * @param toolID is the specified Tool ID
+     * @return the result of the search
      */
     String searchInventoryByID(int toolID) {
         return toolManager.searchToolByID(toolID);
@@ -97,8 +115,9 @@ public class ShopApplication implements Constants {
     //5.
 
     /**
-     * Prompts the user to enter a Tool ID and then prints the quantity of the tool corresponding to the Tool ID.
-     * If the Tool ID does not corrospond to a Tool in the inventory the returned String indicates that.
+     * Checks the quantity of the specified Tool.
+     * @param toolID is the ID of the specified Tool
+     * @return the quantity of the Tool in String format
      */
     String checkToolQuantity(int toolID) {
         return toolManager.getToolQuantity(toolID);
@@ -107,10 +126,10 @@ public class ShopApplication implements Constants {
     //6.
 
     /**
-     * Prompts the uses to enter a Tool ID and the amount to decrease the quantity of the Tool by
-     * and then decreases the quantity of the corresponding Tool in the inventory.
-     * If quantity of the tool is successfully decreased and the new quantity of the tool is below the threshold and
-     * if there is no pending order, a default orderline for the tool is generated for the current Order of the shop application.
+     * Decreases the quantity of the specified Tool by the specified amount.
+     * @param toolID is the ID of the specified Tool
+     * @param amountRemoved is the amount to decrease the quantity by
+     * @return the result of the request
      */
     String decreaseToolQuantity(int toolID, int amountRemoved) {
         return toolManager.decreaseToolQuantity(toolID, amountRemoved);
@@ -118,34 +137,39 @@ public class ShopApplication implements Constants {
     //7.
 
     /**
-     * Prompts the uses to enter a Tool ID and the amount to increase the quantity of the Tool by
-     * and then increases the quantity of the corresponding Tool in the inventory.
+     * Increases the quantity of the specified Tool by the specified amount.
+     * @param toolID is the ID of the specified Tool
+     * @param amountAdded is the amount to increase the quantity by
+     * @return the result of the request
      */
     String increaseToolQuantity(int toolID, int amountAdded) {
-        //use Inventory method: addTools
         return toolManager.increaseToolQuantity(toolID, amountAdded);
     }
 
     //8.
 
+    
     /**
-     * Prompts the user to enter a month, day, and year to set the new Date for the application and then
-     * prints the current Order to a default file and creates a new Order with the user specified date.
+     * Set the new Date for the application.
+     * @param month is the new month 
+     * @param day is the new day
+     * @param year is the new year
+     * @return message indicating what the date was changed to
      */
     String setNewDate(String month, int day, int year) {
-        //changes the date
         date.setMonth(month);
         date.setDay(day);
         date.setYear(year);
 
-        //calls generateNewOrder
         return "Date changed to: " + date + "\n";
     }
 
     //9.
 
     /**
-     * Prompts the user to enter a Tool ID and then deletes the corresponding Tool from the Inventory.
+     * Deletes the specified Tool from the shop inventory.
+     * @param toolID is the ID of the specified Tool
+     * @return the result of the request
      */
     String deleteTool(int toolID) {
         return toolManager.deleteTool(toolID);
@@ -154,14 +178,15 @@ public class ShopApplication implements Constants {
     //10.
 
     /**
-     * Prompts the user for all the necessary information to add a new Tool to the inventory and then
-     * adds the Tool. Requires that the user enters a Supplier ID that corresponds to a Supplier in the Application's
-     * list of Suppliers. If the quantity of the tool is below the threshold,
-     * a default orderline for the tool is generated for the current Order of the shop application.
+     * Adds a new Tool to the shop inventory with the specified Tool ID, Tool name, quantity, price, and Supplier ID.
+     * @param toolID is the specified Tool ID
+     * @param toolName is the specified Tool name
+     * @param quantity is the specified quantity
+     * @param price is the specified price
+     * @param supplierID is the specified SupplierID
+     * @return the result of the request
      */
     String addNewToolToInventory(int toolID, String toolName, int quantity, double price, int supplierID) {
-        //use supplierID to go through supplierList and find the Supplier object
-        //call the Inventory method addNewTool
         return toolManager.addTool(toolID, toolName, quantity, price, false, supplierID);
     }
 
@@ -169,8 +194,12 @@ public class ShopApplication implements Constants {
     //11.
 
     /**
-     * Prompts the user to enter all the necessary information to add a new Supplier to the list
-     * of Suppliers in the Application and then adds the new Supplier to the list.
+     * Adds a new Supplier to the shop application with the specified Supplier ID, company name, address, and sales contact.
+     * @param supplierID is the specified Supplier ID
+     * @param companyName is the Supplier company name
+     * @param address is the address of the Supplier
+     * @param salesContact is the name of the Supplier sales contact
+     * @return the result of the request
      */
     String addNewSupplier(int supplierID, String companyName, String address, String salesContact) {
         return supplierManager.addSupplier(supplierID, companyName, address, salesContact);
@@ -178,7 +207,13 @@ public class ShopApplication implements Constants {
     }
 
     // 12.
-    // Checks if a given username/password (hased with SHA512) is valid
+
+    /**
+     * Checks if a given username/password (hashed with SHA512) is valid
+     * @param username is the given username
+     * @param hashedPassword is the given password
+     * @return the true or false in String format
+     */
     String checkLogin(String username, String hashedPassword) {
         return authenticator.authenticate(username, hashedPassword);
     }

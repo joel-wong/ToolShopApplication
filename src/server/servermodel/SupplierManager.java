@@ -7,17 +7,35 @@ import server.servermodel.database.ToolDatabaseTableManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class to manage a list of Suppliers in a Tool Shop application.
+ * @author Wenjia Yang and Joel Wong
+ * @version 1.0
+ * @since April 5, 2019
+ */
 class SupplierManager {
-
+	/**
+	 * Supplier Database Table Manager
+	 */
     private SupplierDatabaseTableManager supplierDatabaseTableManager;
-
+    /**
+     * Tool Database Table Manager
+     */
     private ToolDatabaseTableManager toolDatabaseTableManager;
 
+    /**
+     * Constructs a SupplierManager object with the specified DatabaseConnectionManager.
+     * @param databaseConnectionManager is the specified DatabaseConnectionManager
+     */
     SupplierManager(DatabaseConnectionManager databaseConnectionManager){
         this.supplierDatabaseTableManager = new SupplierDatabaseTableManager(databaseConnectionManager);
         this.toolDatabaseTableManager = new ToolDatabaseTableManager(databaseConnectionManager);
     }
 
+    /**
+     * Returns a list of the Suppliers and corresponding Supplier details in the shop application in String form.
+     * @return the list of Suppliers
+     */
     String listSuppliers(){
         String supplierListString = "";
 
@@ -45,6 +63,14 @@ class SupplierManager {
         return supplierListString;
     }
 
+    /**
+     * Adds a new Supplier with the specified parameters to the shop application.
+     * @param supplierID is the new Supplier ID number
+     * @param companyName is the new Supplier's company name
+     * @param address is the new Supplier's address
+     * @param salesContact is the new Supplier's sales contact name
+     * @return the request's resulting message
+     */
     String addSupplier(int supplierID, String companyName, String address, String salesContact) {
         if (supplierID < 1) {
             return "The supplier ID must be positive.\n";
