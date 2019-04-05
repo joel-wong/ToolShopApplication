@@ -1,9 +1,7 @@
 package server.servermodel;
 
-import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.InputMismatchException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,11 +14,11 @@ import java.util.Scanner;
 public class ShopManager {
 
     /**
-     * Makes function calls to the shopApplicationInstance based on input
+     * ShopManager will make function calls to the shopApplicationInstance based on input
      */
     private ShopApplication shopApplicationInstance;
 
-    /**
+    /** Constructor that creates the interface to communicate with the shop application
      *
      * @param shopApplicationInstance The shop application
      */
@@ -28,6 +26,13 @@ public class ShopManager {
         this.shopApplicationInstance = shopApplicationInstance;
     }
 
+    /** Receives a String with multiple lines and calls the appropriate function with the appropriate inputs.
+     * The first line must be an integer corresponding to one of the functions in the toolShop.
+     * The remaining lines will be arguments relating to the the specific functionality
+     *
+     * @param input The input String received from the client
+     * @return A String with relevant information to return to the client, based on function calls
+     */
     public synchronized String serviceRequest(String input) {
         Scanner sc = new Scanner(input);
         sc.useDelimiter("[;|\n\r]+");
