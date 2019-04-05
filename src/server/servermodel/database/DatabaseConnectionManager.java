@@ -41,7 +41,6 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
         catch(SQLException e) {
             System.err.println("Error when reading from database");
             System.err.println(e.getMessage());;
-            System.exit(-1);
         }
         return null;
     }
@@ -53,7 +52,6 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
         catch(SQLException e) {
             System.err.println("Error when writing to database");
             System.err.println(e.getMessage());;
-            System.exit(-1);
         }
     }
 
@@ -63,8 +61,7 @@ public class DatabaseConnectionManager implements DatabaseCredentials {
         }
         catch(SQLException e) {
             System.err.println("Error when updating database");
-            System.err.println(e.getMessage());;
-            System.exit(-1);
+            System.err.println(e.getMessage());
         }
     }
 

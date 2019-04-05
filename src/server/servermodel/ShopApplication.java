@@ -27,10 +27,6 @@ import java.text.SimpleDateFormat;
  */
 public class ShopApplication implements Constants {
     /**
-     * Current Order of the day that is being edited by the application
-     */
-    private Order order;
-    /**
      * Current date
      */
     private Date date;
@@ -51,66 +47,16 @@ public class ShopApplication implements Constants {
     }
 
     private void setupShop(){
-        ArrayList<Tool> toolList = new ArrayList<Tool>();
-        ArrayList<Supplier> supplierList = new ArrayList<Supplier>();
-        Order order = new Order();
         Calendar javaDate = Calendar.getInstance();
         Format formatter = new SimpleDateFormat("MMMM");
         String currentMonth = formatter.format(javaDate.getTime());
-        Date currentDate = new Date(currentMonth, javaDate.get(Calendar.DAY_OF_MONTH), javaDate.get(Calendar.YEAR));
-
-        this.order = order;
-        this.date = currentDate;
+        this.date = new Date(currentMonth, javaDate.get(Calendar.DAY_OF_MONTH), javaDate.get(Calendar.YEAR));
 
         DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
         this.supplierManager = new SupplierManager(databaseConnectionManager);
         this.orderManager = new OrderManager(databaseConnectionManager);
-        this.toolManager = new ToolManager(databaseConnectionManager);
+        this.toolManager = new ToolManager(databaseConnectionManager, date);
         this.authenticator = new Authenticator(databaseConnectionManager);
-
-        generateNewOrder();
-    }
-
-    /**
-     * Generates a new Order using the current Date of the Shop Application.
-     */
-    void generateNewOrder() {
-
-        order.newOrder(date.getMonth(), date.getDay(), date.getYear());
-
-    }
-
-    /**
-     * Generates a default OrderLine for the current Order of the Shop Application for the given
-     * Tool.
-     *
-     * @param tool            is the Tool to generate the orderline for
-     * @param currentQuantity is the current quantity of the Tool
-     */
-    void generateDefaultOrderline(Tool tool, int currentQuantity) {
-        order.addOrderLine(tool, itemQuantityMaximum - currentQuantity);
-//        System.out.println("Generated an orderline for item " + tool.getToolID());
-        //The tool now has a pending order
-        tool.setPendingOrder(true);
-    }
-
-    /**
-     * Prints the current Order of the Shop Application to the specified file.
-     *
-     * @param fileName is the name of the specified file
-     */
-    void printOrderToFile(String fileName) {
-        //call order toString method
-        try {
-            FileWriter f = new FileWriter(fileName, true);
-            PrintWriter pr1 = new PrintWriter(f);
-            pr1.println(order);
-            pr1.close();
-        }
-        catch (IOException e) {
-            System.err.println("Error, could not save orders to file");
-            System.err.println("Error message: " + e.getMessage());
-        }
     }
 
     //0.
@@ -119,13 +65,7 @@ public class ShopApplication implements Constants {
      * Print a list of all orders and their order items
      */
     String listOrders() {
-        String stringToReturn = "\n\t\tList of Orders:\n\n";
-        stringToReturn += lineOfEquals + "\n\n";
-//        for (int i = 0; i < orders.size(); i++) {
-            stringToReturn += order.toString() + "\n";
-//        }
-        stringToReturn += "\n" + lineOfEquals;
-        return stringToReturn;
+        return orderManager.listOrders();
     }
 
     //1.
@@ -206,18 +146,13 @@ public class ShopApplication implements Constants {
      * prints the current Order to a default file and creates a new Order with the user specified date.
      */
     String setNewDate(String month, int day, int year) {
-        printOrderToFile(ordersFile);
-
         //changes the date
         date.setMonth(month);
         date.setDay(day);
         date.setYear(year);
 
         //calls generateNewOrder
-        generateNewOrder();
-        String response = "Date changed to: " + date + "\n";
-        response += "New Order has been generated and previous Order has been printed to file \"" + ordersFile + "\"\n";
-        return response;
+        return "Date changed to: " + date + "\n";
     }
 
     //9.

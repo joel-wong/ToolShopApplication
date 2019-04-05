@@ -1,8 +1,6 @@
 package server.servermodel;
 
-import server.servermodel.database.DatabaseConnectionManager;
-import server.servermodel.database.SupplierDatabaseTableManager;
-import server.servermodel.database.ToolDatabaseTableManager;
+import server.servermodel.database.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +11,18 @@ public class ToolManager implements Constants {
 
     private ToolDatabaseTableManager toolDatabaseTableManager;
 
-    ToolManager(DatabaseConnectionManager databaseConnectionManager){
+    private OrderlineDatabaseTableManager orderlineDatabaseTableManager;
+
+    private OrderDatabaseTableManager orderDatabaseTableManager;
+
+    private Date date;
+
+    ToolManager(DatabaseConnectionManager databaseConnectionManager, Date date){
         this.supplierDatabaseTableManager = new SupplierDatabaseTableManager(databaseConnectionManager);
         this.toolDatabaseTableManager = new ToolDatabaseTableManager(databaseConnectionManager);
+        this.orderDatabaseTableManager = new OrderDatabaseTableManager(databaseConnectionManager);
+        this.orderlineDatabaseTableManager = new OrderlineDatabaseTableManager(databaseConnectionManager);
+        this.date = date;
     }
 
     String listTools(){
@@ -102,6 +109,10 @@ public class ToolManager implements Constants {
                 return "That tool does not exist\n";
             }
             else {
+                ResultSet orderlinesForTool = orderlineDatabaseTableManager.searchOrderlineByToolID(toolID);
+                if (orderlinesForTool.next()) {
+                    return "Tool cannot be deleted as there is an orderline with the tool.";
+                }
                 toolDatabaseTableManager.deleteTool(toolID);
                 return "Tool successfully deleted.\n";
             }
@@ -114,6 +125,9 @@ public class ToolManager implements Constants {
     String increaseToolQuantity(int toolID, int amountAdded) {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
+        }
+        if (amountAdded < 1) {
+            return "You must remove at least one item";
         }
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
         try{
@@ -136,6 +150,9 @@ public class ToolManager implements Constants {
         if (toolID < 1) {
             return "Tool ID must be positive.\n";
         }
+        if (amountRemoved < 1) {
+            return "You must remove at least one item";
+        }
         ResultSet toolReturned = toolDatabaseTableManager.searchToolByID(toolID);
         try{
             if(toolReturned.next()){
@@ -147,12 +164,26 @@ public class ToolManager implements Constants {
                     int newQuantity = quantityLeft - amountRemoved;
                     toolDatabaseTableManager.changeToolQuantity(toolID, newQuantity);
                     if (newQuantity < itemQuantityMinimum) {
-//                        CREATE ORDER HERE
-                        return "New quantity is " + newQuantity + ". An order has been generated.";
+                        if(!(orderlineDatabaseTableManager.searchOrderlineByToolID(toolID).next())) {
+                            // no current order for this tool
+                            ResultSet orderForDate = orderDatabaseTableManager.getOrderByDate(date.getDay(), date.getMonth(), date.getYear());
+
+                            if(!orderForDate.next()) {
+                                // no current order for given date
+                                orderDatabaseTableManager.createOrder(date.getDay(), date.getMonth(), date.getYear());
+                                orderForDate = orderDatabaseTableManager.getOrderByDate(date.getDay(), date.getMonth(), date.getYear());
+                                orderForDate.next();
+                            }
+
+                            int amountToOrder = itemQuantityMaximum - newQuantity;
+                            double costOfOrder = amountToOrder*(toolReturned.getDouble("price"));
+                            orderlineDatabaseTableManager.createOrderLine(amountToOrder, toolID, orderForDate.getInt("order_id"), costOfOrder);
+
+                            return "New quantity is " + newQuantity + ". An order has been generated.";
+                        }
+                        return "New quantity is " + newQuantity + ". No new order has been generated since an order already exists for this item";
                     }
-                    else {
                         return "New quantity is " + newQuantity;
-                    }
                 }
             }
             else {
@@ -172,7 +203,7 @@ public class ToolManager implements Constants {
                         "\nTool Name: " + toolReturned.getString("tool_name") +
                         "\nQuantity in Stock: " + toolReturned.getInt("quantity_in_stock") +
                         "\nPrice: " + toolReturned.getDouble("price") +
-                        "\nSupplier ID: " + toolReturned.getInt("supplier_id") + "\n\n";;
+                        "\nSupplier ID: " + toolReturned.getInt("supplier_id") + "\n\n";
                 return response;
             }
             else {

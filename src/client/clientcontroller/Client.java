@@ -111,13 +111,12 @@ public class Client {
         ClientController clientController = new ClientController(clientInstance);
         
         LoginFrame loginView = new LoginFrame("Frame 1");
-        
+
         LoginListener loginListener = new LoginListener(loginView,clientController);
-        
+
         loginView.setVisible(true);
 
         clientInstance.connectToServer();
-        System.out.println(clientController.listOrders());
         // connections will be closed automatically
     }
 }

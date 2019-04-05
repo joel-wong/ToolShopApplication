@@ -21,25 +21,11 @@ public interface Constants {
 	 * the number of existing items
 	 */
 	static final int itemQuantityMaximum = 50;
-	
-	/**
-	 * The name of the text file that the order is written to at the end of each day
-	 */
-	static final String ordersFile = "orders.txt";
-
-	/**
-	 * Used for formatting - outputs a line of stars
-	 */
-	static final String lineOfStars = "********************************************************************************************************";
 
 	/**
 	 * Used for formatting - outputs a line of equals signs
 	 */
-	static final String lineOfEquals = "========================================================================================================";
+	static final String lineOfEquals = "==============================================================================================";
 
-	/**
-	 * Used for formatting - outputs a line of equals signs with the word MENU in the middle
-	 */
-	static final String lineOfEqualsWithMenuInCenter = "==================================================MENU==================================================";
 
 }

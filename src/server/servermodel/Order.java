@@ -27,6 +27,9 @@ public class Order {
     //NOTE: The relationship between OrderLine and Order is composition which is different from
     //the class diagram that Moshirpour provided.
 
+    private double totalPrice;
+
+
     /**
      * Changes the Order to a new Order for the specified date.
      * The order ID is also generated and an empty list of OrderLines is created.

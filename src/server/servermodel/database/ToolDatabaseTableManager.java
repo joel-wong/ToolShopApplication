@@ -64,9 +64,8 @@ public class ToolDatabaseTableManager extends DatabaseTableManager {
             insertQuery(statement);
         }
         catch(SQLException e){
-            System.err.println("Invalid statement");
+            System.err.print("Invalid statement");
             System.err.println(e.getMessage());
-            System.exit(-1);
         }
     }
 

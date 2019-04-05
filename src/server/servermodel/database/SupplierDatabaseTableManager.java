@@ -17,9 +17,8 @@ public class SupplierDatabaseTableManager extends DatabaseTableManager {
             return readQuery(statement);
         }
         catch(SQLException e){
-            System.err.println("Invalid statement");
+            System.err.println("Invalid statement in getAllSuppliers");
             System.err.println(e.getMessage());
-            System.exit(-1);
         }
         return null;
     }
