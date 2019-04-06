@@ -209,13 +209,13 @@ public class ShopApplication implements Constants {
     // 12.
 
     /**
-     * Checks if a given username/password (hashed with SHA512) is valid
+     * Checks if a given username/password is valid
      * @param username is the given username
-     * @param hashedPassword is the given password
+     * @param password is the given password
      * @return the true or false in String format
      */
-    String checkLogin(String username, String hashedPassword) {
-        return authenticator.authenticate(username, hashedPassword);
+    String checkLogin(String username, String password) {
+        return authenticator.authenticate(username, password);
     }
 
 }

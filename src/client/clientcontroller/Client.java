@@ -72,6 +72,9 @@ public class Client {
     /**
      * Receives input and writes to socket,
      * then returns socket output.
+     *
+     * @param stringToSendToServer The string to be sent to the server
+     * @return The string received from the server
      */
     String request(String stringToSendToServer) {
 
